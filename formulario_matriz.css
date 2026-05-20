@@ -360,6 +360,51 @@ textarea,
   margin: 8px 0;
 }
 
+.downloads-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f8faf7;
+  padding: clamp(14px, 3vw, 22px);
+  margin-bottom: 24px;
+}
+
+.downloads-panel h1 {
+  margin-top: 0;
+}
+
+.download-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.download-grid a {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  padding: 12px;
+  text-decoration: none;
+}
+
+.download-grid a:hover {
+  border-color: var(--brand);
+}
+
+.download-grid strong,
+.download-grid span {
+  display: block;
+}
+
+.download-grid span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  word-break: break-word;
+}
+
 .field-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 220px;

@@ -272,6 +272,16 @@ const budgetScreens = {
 };
 const budgetCache = {};
 
+const stageDescriptionFiles = [
+  ["Meta 1 - Etapas 01.01 a 01.05", "plano_trabalho_condapav_por_etapa_vfinal Meta 1 Etapas 1 a 5.md"],
+  ["Meta 1 - Etapas 01.06 a 01.09", "plano_trabalho_condapav_a_partir_etapa_0106 a 0109.md"],
+  ["Meta 2 - UTC até Etapa 02.05", "plano_trabalho_condapav_meta_2_utc ate 0205.md"],
+  ["Meta 2 - Etapa 02.06", "plano_trabalho_condapav_meta_2_etapa_0206.md"],
+  ["Meta 3 - Etapas 03.01 a 03.04", "plano_trabalho_condapav_meta_3_compostagem etapas 0301 a 0304.md"],
+  ["Meta 3 - Etapas 03.05 a 03.06", "plano_trabalho_condapav_meta_3_etapa_0305 a 0306.md"],
+  ["Meta 4 - PSA", "plano_trabalho_condapav_meta_4_psa.md"]
+];
+
 const comparisonRows = [
   ["Valor global", "R$ 7.487.148,85", "R$ 7.487.148,85", "Igual", "As duas fecham exatamente no mesmo total."],
   ["Meta 1", "R$ 4.479.974,89", "R$ 4.492.289,31", "+ R$ 12.314,42", "Opção 2 força o perfil para 60,00%."],
@@ -763,10 +773,30 @@ async function renderBudgetScreen(view) {
   try {
     const markdown = budgetCache[screen.file] || await fetchMarkdown(screen.file);
     budgetCache[screen.file] = markdown;
-    content.innerHTML = markdownToHtml(markdown);
+    content.innerHTML = `${view === "redacaoTransferegov" ? renderStageDownloads() : ""}${markdownToHtml(markdown)}`;
   } catch {
     content.innerHTML = `<p>Não foi possível carregar <strong>${escapeHtml(screen.file)}</strong>. Abra esta página pelo GitHub Pages ou por um servidor local para permitir o carregamento dos arquivos Markdown.</p>`;
   }
+}
+
+function renderStageDownloads() {
+  return `
+    <section class="downloads-panel">
+      <div>
+        <p class="eyebrow">Parte C - Descrições de Etapa</p>
+        <h1>Downloads das 25 descrições de etapa</h1>
+        <p>Arquivos em Markdown no formato das 5 perguntas do Manual SINIR, prontos para consulta e cópia.</p>
+      </div>
+      <div class="download-grid">
+        ${stageDescriptionFiles.map(([label, file]) => `
+          <a href="${encodeURI(file)}" download>
+            <strong>${escapeHtml(label)}</strong>
+            <span>${escapeHtml(file)}</span>
+          </a>
+        `).join("")}
+      </div>
+    </section>
+  `;
 }
 
 function renderBudgetComparison() {
