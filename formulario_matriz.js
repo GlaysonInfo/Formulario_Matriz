@@ -259,6 +259,11 @@ const budgetScreens = {
     subtitle: "Versão vfinal corrigida, com médias/medianas de cotações e fechamento realocado para obras.",
     file: "06_ORCAMENTO_CORRIGIDO_vfinal.md"
   },
+  orcamento21: {
+    title: "OpÃ§Ã£o 2.1 - OrÃ§amentaÃ§Ã£o",
+    subtitle: "VersÃ£o ajustada: SIGRS por APF, PEVs realistas, compactadores e PSA com 16 catadores.",
+    file: "08_ORCAMENTO_v2.1_AJUSTADO.md"
+  },
   comparativo: {
     title: "Comparativo entre propostas orçamentárias",
     subtitle: "Diferenças de valores, composição e decisões críticas entre a Opção 1 e a Opção 2.",
@@ -271,6 +276,10 @@ const budgetScreens = {
   }
 };
 const budgetCache = {};
+
+budgetScreens.orcamento21.title = "Opcao 2.1 - Orcamentacao";
+budgetScreens.orcamento21.subtitle = "Versao ajustada: SIGRS por APF, PEVs realistas, compactadores e PSA com 16 catadores.";
+budgetScreens.comparativo.subtitle = "Diferencas de valores, composicao e decisoes criticas entre as tres opcoes.";
 
 const stageDescriptionFiles = [
   ["Meta 1 - Etapas 01.01 a 01.05", "plano_trabalho_condapav_por_etapa_vfinal Meta 1 Etapas 1 a 5.md"],
@@ -299,6 +308,26 @@ const comparisonRows = [
   ["Gestão/RH do PSA", "R$ 219.153,33", "Removida", "- R$ 219.153,33", "Opção 2 absorve a gestão pela equipe própria do CONDAPAV + Produto 24."],
   ["Pagamento direto PSA", "R$ 427.446,60", "R$ 691.200,00", "+ R$ 263.753,40", "Opção 2 prioriza pagamento direto aos 12 catadores."],
   ["Custeio x Investimento", "Não consolidado no resumo final", "Investimento R$ 5.032.546,00 / Custeio R$ 2.454.602,85", "Mudança relevante", "Opção 2 sobe investimento para 67,2%; precisa conferir limite do edital."]
+];
+
+const comparisonRowsV3 = [
+  ["Valor global", "R$ 7.487.148,85", "R$ 7.487.148,85", "R$ 7.487.148,85", "As tres fecham exatamente no valor global."],
+  ["Meta 1", "R$ 4.479.974,89 (59,84%)", "R$ 4.492.289,31 (60,00%)", "R$ 4.492.289,31 (60,00%)", "Opcoes 2 e 2.1 estabilizam o perfil em 60%."],
+  ["Meta 2", "R$ 1.871.937,97", "R$ 1.871.787,21", "R$ 1.871.787,21", "Opcao 2.1 mantem a Meta 2 da Opcao 2."],
+  ["Meta 3", "R$ 386.521,10", "R$ 374.357,44", "R$ 374.357,44", "Opcao 2.1 mantem a Meta 3 da Opcao 2."],
+  ["Meta 4", "R$ 748.714,89", "R$ 748.714,89", "R$ 748.714,89", "Todas preservam 10% para inclusao produtiva/PSA."],
+  ["Obras PEVs", "R$ 1.594.857,33", "R$ 2.210.266,35", "R$ 720.000,00", "Opcao 2.1 corrige o ponto mais sensivel da Opcao 2 e adota obra de PEVs mais realista."],
+  ["Compactadores municipais", "Nao previsto", "Nao previsto", "3 un. / R$ 1.291.053,11", "Opcao 2.1 usa a economia dos PEVs para viabilizar frota municipal."],
+  ["SIGRS", "R$ 585.255,94", "R$ 160.786,76", "R$ 360.000,00", "Opcao 2.1 fica no meio-termo: mais robusta que a Opcao 2, menor que a Opcao 1."],
+  ["Pick-up", "R$ 259.966,67", "R$ 154.350,00", "R$ 154.350,00", "Opcoes 2 e 2.1 usam media das cotacoes."],
+  ["Notebook", "R$ 6.201,00", "R$ 3.899,00", "R$ 3.899,00", "Opcoes 2 e 2.1 retiram distorcao de cotacao por pacote."],
+  ["Container 700 L", "R$ 2.699,67", "R$ 1.807,00", "R$ 1.807,00", "Opcoes 2 e 2.1 usam mediana/cotacao base."],
+  ["Contentor 500 L", "R$ 2.771,83", "R$ 969,86", "R$ 969,86", "Opcoes 2 e 2.1 corrigem o valor unitario."],
+  ["Pagamento direto PSA", "R$ 427.446,60", "R$ 691.200,00 (12 catadores)", "R$ 598.400,00 (16 catadores)", "Opcao 2 maximiza repasse mensal; Opcao 2.1 amplia beneficiarios e alonga para 17 meses."],
+  ["Gestao do PSA", "R$ 219.153,33", "Removida", "R$ 92.124,65", "Opcao 2.1 restaura gestao enxuta para dar governanca ao PSA."],
+  ["Kit/EPIs PSA", "12 catadores", "12 catadores", "16 catadores", "Opcao 2.1 exige atualizacao dos indicadores e redacoes da Meta 4."],
+  ["Custeio x Investimento", "Nao consolidado no resumo final", "Investimento 67,2% / Custeio 32,8%", "Investimento 64,6% / Custeio 35,4%", "Opcao 2.1 reduz o peso de investimento, mas ainda exige checagem de teto do edital."],
+  ["Leitura geral", "Mais aberta, mas com precos altos e SIGRS elevado", "Mais defensavel em cotacoes, porem PEVs muito altos e SIGRS baixo", "Mais equilibrada entre APF, PEVs, frota e PSA", "Opcao 2.1 e a candidata mais equilibrada, sujeita a validacao dos compactadores e do limite custeio/investimento."]
 ];
 
 const consolidatedDefaults = {
@@ -764,7 +793,7 @@ async function renderBudgetScreen(view) {
 
   const content = document.getElementById("budgetContent");
   if (view === "comparativo") {
-    content.innerHTML = renderBudgetComparison();
+    content.innerHTML = renderBudgetComparisonV3();
     return;
   }
 
@@ -796,6 +825,67 @@ function renderStageDownloads() {
         `).join("")}
       </div>
     </section>
+  `;
+}
+
+function renderBudgetComparisonV3() {
+  return `
+    <section class="comparison-summary">
+      <article>
+        <span>Mesmo valor global</span>
+        <strong>R$ 7.487.148,85</strong>
+        <p>As tres opcoes fecham exatamente no total da parceria.</p>
+      </article>
+      <article>
+        <span>Nova sintese</span>
+        <strong>Opcao 2.1</strong>
+        <p>PEVs realistas, SIGRS por APF, compactadores e PSA com 16 catadores.</p>
+      </article>
+      <article>
+        <span>Ponto de atencao</span>
+        <strong>64,6% investimento</strong>
+        <p>A Opcao 2.1 reduz investimento frente a Opcao 2, mas ainda pede checagem do edital.</p>
+      </article>
+    </section>
+
+    <h1>Comparativo Executivo</h1>
+    <p>A <strong>Opcao 1</strong> e a base detalhada original. A <strong>Opcao 2</strong> corrige precos unitarios, mas concentra muito recurso em obras. A <strong>Opcao 2.1</strong> redistribui a economia dos PEVs para SIGRS por APF, compactadores municipais e PSA com 16 catadores.</p>
+
+    <div class="table-wrap comparison-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Aspecto</th>
+            <th>Opcao 1</th>
+            <th>Opcao 2</th>
+            <th>Opcao 2.1</th>
+            <th>Leitura tecnica</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${comparisonRowsV3.map(([item, option1, option2, option21, note]) => `
+            <tr>
+              <td><strong>${escapeHtml(item)}</strong></td>
+              <td>${escapeHtml(option1)}</td>
+              <td>${escapeHtml(option2)}</td>
+              <td>${escapeHtml(option21)}</td>
+              <td>${escapeHtml(note)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Principais Diferencas</h2>
+    <ul class="comparison-notes">
+      <li><strong>Opcao 2.1 corrige PEVs:</strong> reduz as obras dos PEVs de R$ 2,21 mi para R$ 720 mil, aproximando o item de uma tipologia mais realista.</li>
+      <li><strong>Opcao 2.1 reforca frota:</strong> inclui 3 compactadores municipais, usando R$ 1,291 mi da economia dos PEVs.</li>
+      <li><strong>SIGRS fica mais defensavel:</strong> sobe de R$ 160.786,76 para R$ 360.000,00, agora justificado por Pontos de Funcao/APF.</li>
+      <li><strong>PSA muda de desenho:</strong> sai de 12 catadores com maior repasse mensal para 16 catadores por 17 meses, com gestao enxuta restaurada.</li>
+      <li><strong>Ponto critico remanescente:</strong> investimento cai de 67,2% para 64,6%, mas ainda precisa validar teto de custeio/investimento no edital.</li>
+    </ul>
+
+    <blockquote><strong>Leitura recomendada:</strong> usar a Opcao 2.1 como base de trabalho, validando compactadores, APF do SIGRS, indicadores da Meta 4 e limite Custeio x Investimento.</blockquote>
   `;
 }
 
