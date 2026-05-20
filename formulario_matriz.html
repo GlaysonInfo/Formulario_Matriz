@@ -27,6 +27,13 @@
   </header>
 
   <main>
+    <nav class="view-tabs no-print" aria-label="Telas do sistema">
+      <button type="button" class="active" data-view="matriz">Matriz</button>
+      <button type="button" data-view="orcamento1">Opção 1 - Orçamentação</button>
+      <button type="button" data-view="orcamento2">Opção 2 - Orçamentação</button>
+    </nav>
+
+    <section id="matrixView">
     <section class="summary no-print" aria-label="Resumo">
       <div>
         <strong id="countTotal">0</strong>
@@ -69,6 +76,16 @@
 
     <nav id="tabs" class="tabs no-print" aria-label="Partes da matriz"></nav>
     <section id="formRoot" class="form-root"></section>
+    </section>
+
+    <section id="budgetView" class="budget-view hidden">
+      <div class="budget-head">
+        <p id="budgetEyebrow" class="eyebrow">Orçamentação</p>
+        <h2 id="budgetTitle"></h2>
+        <p id="budgetSubtitle" class="subtitle"></p>
+      </div>
+      <article id="budgetContent" class="budget-content"></article>
+    </section>
   </main>
 
   <template id="fieldTemplate">

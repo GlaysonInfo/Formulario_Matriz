@@ -157,10 +157,23 @@ textarea,
   margin-bottom: 8px;
 }
 
+.view-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.view-tabs button {
+  white-space: nowrap;
+}
+
 .tabs button {
   white-space: nowrap;
 }
 
+.view-tabs button.active,
 .tabs button.active {
   background: var(--brand);
   color: #fff;
@@ -186,6 +199,97 @@ textarea,
 
 .field-card.hidden {
   display: none;
+}
+
+.budget-view.hidden,
+.hidden {
+  display: none;
+}
+
+.budget-head {
+  margin: 10px 0 16px;
+}
+
+.budget-head h2 {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 34px);
+}
+
+.budget-content {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: clamp(16px, 3vw, 28px);
+}
+
+.budget-content h1,
+.budget-content h2,
+.budget-content h3 {
+  margin: 24px 0 10px;
+  line-height: 1.2;
+}
+
+.budget-content h1 {
+  font-size: 28px;
+}
+
+.budget-content h2 {
+  font-size: 22px;
+}
+
+.budget-content h3 {
+  font-size: 18px;
+}
+
+.budget-content p,
+.budget-content li,
+.budget-content blockquote {
+  line-height: 1.55;
+}
+
+.budget-content blockquote {
+  margin: 14px 0;
+  border-left: 4px solid var(--brand);
+  padding: 8px 14px;
+  background: #eef4f0;
+}
+
+.budget-content table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.budget-content .table-wrap {
+  overflow-x: auto;
+  margin: 14px 0 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.budget-content th,
+.budget-content td {
+  border-bottom: 1px solid var(--line);
+  padding: 9px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.budget-content th {
+  background: #f1f4ef;
+  color: var(--ink);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.budget-content tr:last-child td {
+  border-bottom: 0;
+}
+
+.budget-content hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 22px 0;
 }
 
 .field-head {
@@ -328,7 +432,8 @@ textarea {
   .no-print,
   .actions,
   .filters,
-  .tabs {
+  .tabs,
+  .view-tabs {
     display: none !important;
   }
 

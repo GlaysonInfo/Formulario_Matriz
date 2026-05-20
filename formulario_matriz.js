@@ -246,6 +246,21 @@ const decisions = [
 const fields = [...architecture, ...indicators, ...stages, ...expenses, ...finance, ...decisions];
 let state = loadState();
 let activePart = "";
+let activeView = "matriz";
+
+const budgetScreens = {
+  orcamento1: {
+    title: "Opção 1 - Orçamentação",
+    subtitle: "Planilha orçamentária detalhada vfinal, organizada por meta, etapa e item de despesa.",
+    file: "planilha_orcamentaria_condapav_vfinal.md"
+  },
+  orcamento2: {
+    title: "Opção 2 - Orçamentação",
+    subtitle: "Versão vfinal corrigida, com médias/medianas de cotações e fechamento realocado para obras.",
+    file: "06_ORCAMENTO_CORRIGIDO_vfinal.md"
+  }
+};
+const budgetCache = {};
 
 const consolidatedDefaults = {
   ...buildExpenseDefaults(),
@@ -689,6 +704,147 @@ function applyFilters() {
   });
 }
 
+function setView(view) {
+  activeView = view;
+  document.querySelectorAll(".view-tabs button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.view === view);
+  });
+  document.getElementById("matrixView").classList.toggle("hidden", view !== "matriz");
+  document.getElementById("budgetView").classList.toggle("hidden", view === "matriz");
+  if (view !== "matriz") renderBudgetScreen(view);
+}
+
+async function renderBudgetScreen(view) {
+  const screen = budgetScreens[view];
+  if (!screen) return;
+  document.getElementById("budgetTitle").textContent = screen.title;
+  document.getElementById("budgetSubtitle").textContent = screen.subtitle;
+  document.getElementById("budgetEyebrow").textContent = screen.file;
+
+  const content = document.getElementById("budgetContent");
+  content.innerHTML = "<p>Carregando orçamento...</p>";
+
+  try {
+    const markdown = budgetCache[screen.file] || await fetchMarkdown(screen.file);
+    budgetCache[screen.file] = markdown;
+    content.innerHTML = markdownToHtml(markdown);
+  } catch {
+    content.innerHTML = `<p>Não foi possível carregar <strong>${escapeHtml(screen.file)}</strong>. Abra esta página pelo GitHub Pages ou por um servidor local para permitir o carregamento dos arquivos Markdown.</p>`;
+  }
+}
+
+async function fetchMarkdown(file) {
+  const response = await fetch(file, { cache: "no-store" });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  return response.text();
+}
+
+function markdownToHtml(markdown) {
+  const lines = markdown.replace(/\r\n/g, "\n").split("\n");
+  const html = [];
+  let paragraph = [];
+  let list = [];
+
+  const flushParagraph = () => {
+    if (!paragraph.length) return;
+    html.push(`<p>${inlineMarkdown(paragraph.join(" "))}</p>`);
+    paragraph = [];
+  };
+  const flushList = () => {
+    if (!list.length) return;
+    html.push(`<ul>${list.map((item) => `<li>${inlineMarkdown(item)}</li>`).join("")}</ul>`);
+    list = [];
+  };
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index].trim();
+
+    if (!line) {
+      flushParagraph();
+      flushList();
+      continue;
+    }
+
+    if (line.startsWith("|") && lines[index + 1]?.trim().startsWith("|---")) {
+      flushParagraph();
+      flushList();
+      const tableLines = [line];
+      index += 2;
+      while (index < lines.length && lines[index].trim().startsWith("|")) {
+        tableLines.push(lines[index].trim());
+        index += 1;
+      }
+      index -= 1;
+      html.push(markdownTableToHtml(tableLines));
+      continue;
+    }
+
+    if (line === "---") {
+      flushParagraph();
+      flushList();
+      html.push("<hr>");
+      continue;
+    }
+
+    const heading = line.match(/^(#{1,3})\s+(.+)$/);
+    if (heading) {
+      flushParagraph();
+      flushList();
+      const level = heading[1].length;
+      html.push(`<h${level}>${inlineMarkdown(heading[2])}</h${level}>`);
+      continue;
+    }
+
+    if (line.startsWith(">")) {
+      flushParagraph();
+      flushList();
+      html.push(`<blockquote>${inlineMarkdown(line.replace(/^>\s?/, ""))}</blockquote>`);
+      continue;
+    }
+
+    const bullet = line.match(/^[-*]\s+(.+)$/);
+    if (bullet) {
+      flushParagraph();
+      list.push(bullet[1]);
+      continue;
+    }
+
+    const numbered = line.match(/^\d+\.\s+(.+)$/);
+    if (numbered) {
+      flushParagraph();
+      list.push(numbered[1]);
+      continue;
+    }
+
+    paragraph.push(line);
+  }
+
+  flushParagraph();
+  flushList();
+  return html.join("\n");
+}
+
+function markdownTableToHtml(tableLines) {
+  const rows = tableLines.map((line) => line.split("|").slice(1, -1).map((cell) => cell.trim()));
+  const [header, ...body] = rows;
+  return `<div class="table-wrap"><table><thead><tr>${header.map((cell) => `<th>${inlineMarkdown(cell)}</th>`).join("")}</tr></thead><tbody>${body.map((row) => `<tr>${row.map((cell) => `<td>${inlineMarkdown(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+
+function inlineMarkdown(value) {
+  return escapeHtml(value)
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/_(.+?)_/g, "<em>$1</em>")
+    .replace(/`(.+?)`/g, "<code>$1</code>");
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 function updateSummary() {
   const total = fields.length;
   const records = fields.map((field) => getRecord(field.id));
@@ -781,6 +937,10 @@ document.getElementById("clearData").addEventListener("click", () => {
 document.getElementById("importJson").addEventListener("change", (event) => {
   if (event.target.files[0]) importJson(event.target.files[0]);
 });
+document.querySelectorAll(".view-tabs button").forEach((button) => {
+  button.addEventListener("click", () => setView(button.dataset.view));
+});
 
 applyConsolidatedDefaults();
 render();
+setView(activeView);
