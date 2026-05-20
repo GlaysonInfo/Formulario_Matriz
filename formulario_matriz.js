@@ -714,6 +714,8 @@ function setView(view) {
   if (view !== "matriz") renderBudgetScreen(view);
 }
 
+window.condapavSetView = setView;
+
 async function renderBudgetScreen(view) {
   const screen = budgetScreens[view];
   if (!screen) return;

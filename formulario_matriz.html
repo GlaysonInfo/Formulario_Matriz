@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Matriz Exigência x Resposta - CONDAPAV</title>
-  <link rel="stylesheet" href="formulario_matriz.css">
+  <link rel="stylesheet" href="formulario_matriz.css?v=20260520-2">
 </head>
 <body>
   <header class="topbar">
@@ -28,9 +28,9 @@
 
   <main>
     <nav class="view-tabs no-print" aria-label="Telas do sistema">
-      <button type="button" class="active" data-view="matriz">Matriz</button>
-      <button type="button" data-view="orcamento1">Opção 1 - Orçamentação</button>
-      <button type="button" data-view="orcamento2">Opção 2 - Orçamentação</button>
+      <button type="button" class="active" data-view="matriz" onclick="window.condapavSetView && window.condapavSetView('matriz')">Matriz</button>
+      <button type="button" data-view="orcamento1" onclick="window.condapavSetView && window.condapavSetView('orcamento1')">Opção 1 - Orçamentação</button>
+      <button type="button" data-view="orcamento2" onclick="window.condapavSetView && window.condapavSetView('orcamento2')">Opção 2 - Orçamentação</button>
     </nav>
 
     <section id="matrixView">
@@ -111,6 +111,6 @@
     </article>
   </template>
 
-  <script src="formulario_matriz.js"></script>
+  <script src="formulario_matriz.js?v=20260520-2"></script>
 </body>
 </html>
