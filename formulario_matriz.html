@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matriz Exigência x Resposta - CONDAPAV</title>
+  <link rel="stylesheet" href="formulario_matriz.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Parceria 2025-00000232 - CONDAPAV / MMA</p>
+      <h1>Matriz Exigência x Resposta</h1>
+      <p class="subtitle">Formulário eletrônico com respostas por marcação, exportação CSV/JSON e impressão em PDF.</p>
+    </div>
+    <div class="actions no-print">
+      <button type="button" id="exportCsv">Exportar CSV</button>
+      <button type="button" id="exportJson">Exportar JSON</button>
+      <button type="button" id="applyDefaults">Autopreencher consolidados</button>
+      <label class="import-label">
+        Importar JSON
+        <input type="file" id="importJson" accept="application/json">
+      </label>
+      <button type="button" id="printPdf">PDF</button>
+      <button type="button" id="clearData" class="danger">Limpar</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="summary no-print" aria-label="Resumo">
+      <div>
+        <strong id="countTotal">0</strong>
+        <span>campos</span>
+      </div>
+      <div>
+        <strong id="countAnswered">0</strong>
+        <span>respondidos</span>
+      </div>
+      <div>
+        <strong id="countPending">0</strong>
+        <span>pendentes</span>
+      </div>
+      <div>
+        <strong id="countNa">0</strong>
+        <span>não se aplica</span>
+      </div>
+    </section>
+
+    <section class="filters no-print" aria-label="Filtros">
+      <label>
+        Buscar
+        <input id="search" type="search" placeholder="Filtrar por etapa, item, indicador, decisão...">
+      </label>
+      <label>
+        Parte
+        <select id="partFilter"></select>
+      </label>
+      <label>
+        Status
+        <select id="statusFilter">
+          <option value="">Todos</option>
+          <option value="pendente">Pendente</option>
+          <option value="em_analise">Em análise</option>
+          <option value="respondido">Respondido</option>
+          <option value="nao_aplica">Não se aplica</option>
+        </select>
+      </label>
+    </section>
+
+    <nav id="tabs" class="tabs no-print" aria-label="Partes da matriz"></nav>
+    <section id="formRoot" class="form-root"></section>
+  </main>
+
+  <template id="fieldTemplate">
+    <article class="field-card">
+      <div class="field-head">
+        <div>
+          <p class="field-part"></p>
+          <h2></h2>
+        </div>
+        <label class="status-label">
+          Status
+          <select class="status-input">
+            <option value="pendente">Pendente</option>
+            <option value="em_analise">Em análise</option>
+            <option value="respondido">Respondido</option>
+            <option value="nao_aplica">Não se aplica</option>
+          </select>
+        </label>
+      </div>
+      <dl class="metadata"></dl>
+      <div class="choice-groups"></div>
+      <div class="free-fields"></div>
+    </article>
+  </template>
+
+  <script src="formulario_matriz.js"></script>
+</body>
+</html>

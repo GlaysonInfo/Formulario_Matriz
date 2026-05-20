@@ -1,0 +1,11 @@
+# Ignore all project/source documents by default.
+*
+
+# Keep only the static form site needed for GitHub Pages.
+!.gitignore
+!.nojekyll
+!README.md
+!index.html
+!formulario_matriz.html
+!formulario_matriz.css
+!formulario_matriz.js
