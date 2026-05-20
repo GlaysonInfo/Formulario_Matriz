@@ -1,187 +1,187 @@
-const STORAGE_KEY = "condapav_matriz_respostas_v1";
+﻿const STORAGE_KEY = "condapav_matriz_respostas_v1";
 
 const parts = [
   "Arquitetura operacional",
-  "Indicadores físicos",
+  "Indicadores fÃ­sicos",
   "Metas e etapas",
   "Itens de despesa",
-  "Coerência financeira",
-  "Decisões operacionais"
+  "CoerÃªncia financeira",
+  "DecisÃµes operacionais"
 ];
 
 const architecture = [
-  ["A-01", "Coleta seletiva de secos", ["Prefeitura", "CONDAPAV", "Terceirizada", "Cooperativa", "Catadores autônomos", "Híbrido"], ["Prefeitura", "Consórcio", "Rateio", "Receita reciclagem"]],
-  ["A-02", "Coleta seletiva de orgânicos", ["Prefeitura", "CONDAPAV", "Terceirizada", "Cooperativa"], ["Prefeitura", "Consórcio"]],
-  ["A-03", "Operação dos PEVs", ["Servidores municipais", "Vigias", "Cooperativa", "UTC", "Sem operador"], ["Município", "CONDAPAV"]],
-  ["A-04", "Controle de entrada nos PEVs", ["Operador fixo", "Câmera", "Sem controle"], ["Município"]],
-  ["A-05", "Operação da UTC", ["Servidores efetivos", "Contratados", "Cooperativa", "Associação", "Catadores autônomos", "Modelo híbrido"], ["Prefeitura de Cristiano Otoni", "Consórcio", "Receita venda recicláveis"]],
-  ["A-06", "Operação do pátio de compostagem", ["Equipe própria UTC", "Cooperativa", "Terceirizada"], ["Consórcio", "Receita venda composto"]],
-  ["A-07", "Mobilização social", ["Consultoria contratada", "Educação ambiental municipal", "Mobilizadores locais", "Agentes de saúde", "Escolas"], ["Município", "Consórcio"]],
-  ["A-08", "SIGRS", ["Empresa contratada", "SaaS", "Desenvolvimento próprio"], ["Consórcio - licença/manutenção"]],
-  ["A-09", "Operação contínua do SIGRS", ["Equipe interna", "Suporte do fornecedor", "Híbrido"], ["Consórcio"]],
-  ["A-10", "Educação ambiental - oficinas", ["Consultoria", "Equipe municipal", "ONG parceira", "Escolas"], ["Município"]],
-  ["A-11", "Pagamento PSA", ["Consórcio - conta vinculada", "Prefeituras - rateio", "Fundo Municipal de Meio Ambiente"], ["Definir fonte permanente"]],
-  ["A-12", "Combustível, manutenção e energia da operação", ["Município", "Consórcio", "Não previsto no projeto - auto-sustentação"], ["Confirmação obrigatória de fonte"]]
+  ["A-01", "Coleta seletiva de secos", ["Prefeitura", "CONDAPAV", "Terceirizada", "Cooperativa", "Catadores autÃ´nomos", "HÃ­brido"], ["Prefeitura", "ConsÃ³rcio", "Rateio", "Receita reciclagem"]],
+  ["A-02", "Coleta seletiva de orgÃ¢nicos", ["Prefeitura", "CONDAPAV", "Terceirizada", "Cooperativa"], ["Prefeitura", "ConsÃ³rcio"]],
+  ["A-03", "OperaÃ§Ã£o dos PEVs", ["Servidores municipais", "Vigias", "Cooperativa", "UTC", "Sem operador"], ["MunicÃ­pio", "CONDAPAV"]],
+  ["A-04", "Controle de entrada nos PEVs", ["Operador fixo", "CÃ¢mera", "Sem controle"], ["MunicÃ­pio"]],
+  ["A-05", "OperaÃ§Ã£o da UTC", ["Servidores efetivos", "Contratados", "Cooperativa", "AssociaÃ§Ã£o", "Catadores autÃ´nomos", "Modelo hÃ­brido"], ["Prefeitura de Cristiano Otoni", "ConsÃ³rcio", "Receita venda reciclÃ¡veis"]],
+  ["A-06", "OperaÃ§Ã£o do pÃ¡tio de compostagem", ["Equipe prÃ³pria UTC", "Cooperativa", "Terceirizada"], ["ConsÃ³rcio", "Receita venda composto"]],
+  ["A-07", "MobilizaÃ§Ã£o social", ["Consultoria contratada", "EducaÃ§Ã£o ambiental municipal", "Mobilizadores locais", "Agentes de saÃºde", "Escolas"], ["MunicÃ­pio", "ConsÃ³rcio"]],
+  ["A-08", "SIGRS", ["Empresa contratada", "SaaS", "Desenvolvimento prÃ³prio"], ["ConsÃ³rcio - licenÃ§a/manutenÃ§Ã£o"]],
+  ["A-09", "OperaÃ§Ã£o contÃ­nua do SIGRS", ["Equipe interna", "Suporte do fornecedor", "HÃ­brido"], ["ConsÃ³rcio"]],
+  ["A-10", "EducaÃ§Ã£o ambiental - oficinas", ["Consultoria", "Equipe municipal", "ONG parceira", "Escolas"], ["MunicÃ­pio"]],
+  ["A-11", "Pagamento PSA", ["ConsÃ³rcio - conta vinculada", "Prefeituras - rateio", "Fundo Municipal de Meio Ambiente"], ["Definir fonte permanente"]],
+  ["A-12", "CombustÃ­vel, manutenÃ§Ã£o e energia da operaÃ§Ã£o", ["MunicÃ­pio", "ConsÃ³rcio", "NÃ£o previsto no projeto - auto-sustentaÃ§Ã£o"], ["ConfirmaÃ§Ã£o obrigatÃ³ria de fonte"]]
 ].map(([id, title, executor, funding]) => ({
   id,
   part: parts[0],
   title,
-  meta: { "Código": id.replace("A-", ""), "Tipo": "Decisão de arquitetura" },
+  meta: { "CÃ³digo": id.replace("A-", ""), "Tipo": "DecisÃ£o de arquitetura" },
   groups: [
     { key: "executor", label: "Quem executa", choices: executor },
-    { key: "funding", label: "Quem custeia pós-projeto", choices: funding },
-    { key: "decision", label: "Decisão", choices: ["Confirmado", "Pendente de diretoria", "Depende de município", "Depende de orçamento", "Não se aplica"] }
+    { key: "funding", label: "Quem custeia pÃ³s-projeto", choices: funding },
+    { key: "decision", label: "DecisÃ£o", choices: ["Confirmado", "Pendente de diretoria", "Depende de municÃ­pio", "Depende de orÃ§amento", "NÃ£o se aplica"] }
   ],
-  fields: ["Responsável", "Prazo", "Justificativa / observação"]
+  fields: ["ResponsÃ¡vel", "Prazo", "Justificativa / observaÃ§Ã£o"]
 }));
 
 const indicators = [
-  ["Massa", "Resíduos recicláveis secos coletados", "t/mês", "Planilha de pesagem UTC + nota fiscal de venda"],
-  ["Massa", "Resíduos orgânicos coletados", "t/mês", "Planilha de pesagem entrada pátio"],
-  ["Massa", "Composto produzido", "t/mês", "Planilha de pesagem saída pátio"],
-  ["Cobertura", "Municípios atendidos", "nº", "Termo de adesão municipal"],
-  ["Cobertura", "PEVs implantados", "nº", "Termo de recebimento + ART + foto"],
-  ["Cobertura", "Hortas comunitárias implantadas", "nº", "Termo de compromisso + foto + ata"],
-  ["Cobertura", "Escolas atendidas com educação ambiental", "nº", "Ofício + lista de presença + relatório"],
-  ["Cobertura", "Composteiras domésticas distribuídas", "nº", "Termo de entrega assinado"],
-  ["Capacitação", "Operadores capacitados", "nº pessoas", "Lista de presença + certificado"],
-  ["Capacitação", "Mobilizadores capacitados", "nº pessoas", "Lista de presença + certificado"],
-  ["Capacitação", "Catadores capacitados", "nº pessoas", "Lista de presença + certificado"],
-  ["Capacitação", "Oficinas realizadas", "nº", "Ata + lista de presença + foto"],
-  ["PSA", "Catadores aderidos ao PSA", "nº pessoas", "Termo de adesão assinado"],
-  ["PSA", "Recicláveis coletados pelos catadores PSA", "t/mês", "Recibo de pesagem"],
-  ["Documentos", "Diagnósticos elaborados", "nº", "Relatório protocolado"],
-  ["Documentos", "Planos elaborados", "nº", "Plano protocolado"],
-  ["Documentos", "Projetos executivos elaborados", "nº", "Projeto + ART"],
-  ["Documentos", "Regulamentos elaborados", "nº", "Regulamento publicado"],
-  ["Documentos", "Relatórios técnicos emitidos", "nº", "Relatório protocolado"],
-  ["Obras", "Obras executadas", "nº", "Termo de recebimento + ART"],
-  ["Sistema", "Módulos do SIGRS desenvolvidos", "nº", "Termo de aceite + manual"],
-  ["Sistema", "Canais públicos de denúncia ativos", "nº", "URL + relatório de uso"],
-  ["Comunicação", "Peças gráficas produzidas/impressas", "nº", "Notas fiscais + amostras"],
-  ["Comunicação", "Vídeos institucionais produzidos", "nº", "Entrega digital + termo de aceite"]
+  ["Massa", "ResÃ­duos reciclÃ¡veis secos coletados", "t/mÃªs", "Planilha de pesagem UTC + nota fiscal de venda"],
+  ["Massa", "ResÃ­duos orgÃ¢nicos coletados", "t/mÃªs", "Planilha de pesagem entrada pÃ¡tio"],
+  ["Massa", "Composto produzido", "t/mÃªs", "Planilha de pesagem saÃ­da pÃ¡tio"],
+  ["Cobertura", "MunicÃ­pios atendidos", "nÂº", "Termo de adesÃ£o municipal"],
+  ["Cobertura", "PEVs implantados", "nÂº", "Termo de recebimento + ART + foto"],
+  ["Cobertura", "Hortas comunitÃ¡rias implantadas", "nÂº", "Termo de compromisso + foto + ata"],
+  ["Cobertura", "Escolas atendidas com educaÃ§Ã£o ambiental", "nÂº", "OfÃ­cio + lista de presenÃ§a + relatÃ³rio"],
+  ["Cobertura", "Composteiras domÃ©sticas distribuÃ­das", "nÂº", "Termo de entrega assinado"],
+  ["CapacitaÃ§Ã£o", "Operadores capacitados", "nÂº pessoas", "Lista de presenÃ§a + certificado"],
+  ["CapacitaÃ§Ã£o", "Mobilizadores capacitados", "nÂº pessoas", "Lista de presenÃ§a + certificado"],
+  ["CapacitaÃ§Ã£o", "Catadores capacitados", "nÂº pessoas", "Lista de presenÃ§a + certificado"],
+  ["CapacitaÃ§Ã£o", "Oficinas realizadas", "nÂº", "Ata + lista de presenÃ§a + foto"],
+  ["PSA", "Catadores aderidos ao PSA", "nÂº pessoas", "Termo de adesÃ£o assinado"],
+  ["PSA", "ReciclÃ¡veis coletados pelos catadores PSA", "t/mÃªs", "Recibo de pesagem"],
+  ["Documentos", "DiagnÃ³sticos elaborados", "nÂº", "RelatÃ³rio protocolado"],
+  ["Documentos", "Planos elaborados", "nÂº", "Plano protocolado"],
+  ["Documentos", "Projetos executivos elaborados", "nÂº", "Projeto + ART"],
+  ["Documentos", "Regulamentos elaborados", "nÂº", "Regulamento publicado"],
+  ["Documentos", "RelatÃ³rios tÃ©cnicos emitidos", "nÂº", "RelatÃ³rio protocolado"],
+  ["Obras", "Obras executadas", "nÂº", "Termo de recebimento + ART"],
+  ["Sistema", "MÃ³dulos do SIGRS desenvolvidos", "nÂº", "Termo de aceite + manual"],
+  ["Sistema", "Canais pÃºblicos de denÃºncia ativos", "nÂº", "URL + relatÃ³rio de uso"],
+  ["ComunicaÃ§Ã£o", "PeÃ§as grÃ¡ficas produzidas/impressas", "nÂº", "Notas fiscais + amostras"],
+  ["ComunicaÃ§Ã£o", "VÃ­deos institucionais produzidos", "nÂº", "Entrega digital + termo de aceite"]
 ].map(([category, title, unit, source], index) => ({
   id: `C-${String(index + 1).padStart(2, "0")}`,
   part: parts[1],
   title,
   meta: { "Categoria": category, "Unidade": unit, "Fonte original": source },
   groups: [
-    { key: "use", label: "Uso do indicador", choices: ["Usar", "Adaptar", "Excluir", "Aguardando definição"] },
-    { key: "proof", label: "Comprovação", choices: source.split(" + ").concat(["Foto", "Ata", "Lista de presença", "Termo de aceite"]).filter(unique) }
+    { key: "use", label: "Uso do indicador", choices: ["Usar", "Adaptar", "Excluir", "Aguardando definiÃ§Ã£o"] },
+    { key: "proof", label: "ComprovaÃ§Ã£o", choices: source.split(" + ").concat(["Foto", "Ata", "Lista de presenÃ§a", "Termo de aceite"]).filter(unique) }
   ],
   numbers: [{ key: "target", label: `Meta quantitativa (${unit})` }],
-  fields: ["Responsável", "Observação"]
+  fields: ["ResponsÃ¡vel", "ObservaÃ§Ã£o"]
 }));
 
 const stages = [
-  ["01.01", "Planejamento e roteirização da coleta seletiva", "Meta 1", ["Relatório de Diagnóstico", "Plano Logístico", "Roteiro de Operação"]],
-  ["01.02", "Capacitação de mobilizadores e lançamento do Programa de Coleta Seletiva Intermunicipal", "Meta 1", ["Plano de Mobilização", "Mobilizadores capacitados", "Evento de lançamento"]],
-  ["01.03", "Estudos e implantação dos PEVs nos municípios", "Meta 1", ["PEVs implantados", "Número por município definido"]],
-  ["01.04", "Capacitação de operadores dos PEVs e ações de sensibilização da população", "Meta 1", ["Operadores capacitados", "Ações de sensibilização"]],
-  ["01.05", "Operacionalização da coleta seletiva em todos os municípios consorciados", "Meta 1", ["t/mês de secos", "t/mês de orgânicos", "Rotas operadas"]],
-  ["01.06", "Acompanhamento da logística da coleta seletiva e das atividades de mobilização", "Meta 1", ["Relatórios de monitoramento", "Revisão do Plano Logístico", "Revisão do Plano de Mobilização"]],
-  ["01.07", "Sensibilização ambiental para coleta seletiva", "Meta 1", ["Peças gráficas", "Vídeos", "Posts produzidos"]],
-  ["01.08", "Criação de canal público e desenvolvimento do SIGRS", "Meta 1", ["Canal ativo", "Módulos do SIGRS desenvolvidos"]],
-  ["01.09", "Consolidação final dos indicadores e Relatório de Cumprimento de Objeto Final", "Meta 1", ["Relatório de Cumprimento de Objeto Final"]],
-  ["02.01", "Projetos Executivos de Engenharia para reestruturação da UTC", "Meta 2", ["Projeto Executivo", "ART"]],
-  ["02.02", "Avaliação e reestruturação dos processos internos da UTC", "Meta 2", ["POPs elaborados", "Oficinas"]],
-  ["02.03", "Obras e serviços de engenharia para reestruturação da UTC", "Meta 2", ["Obra concluída", "m² reformados"]],
-  ["02.04", "Aquisição e instalação de equipamentos para a UTC", "Meta 2", ["Equipamentos individualizados"]],
-  ["02.05", "Capacitação para uso de novos equipamentos e operação do SIGRS", "Meta 2", ["Pessoas capacitadas", "Oficinas"]],
-  ["02.06", "Operação e monitoramento da UTC revitalizada", "Meta 2", ["t/mês de recicláveis beneficiados", "Relatórios mensais"]],
-  ["03.01", "Projeto de Readequação do Pátio de compostagem", "Meta 3", ["Projeto Executivo", "ART", "Drenagem contemplada"]],
+  ["01.01", "Planejamento e roteirizaÃ§Ã£o da coleta seletiva", "Meta 1", ["RelatÃ³rio de DiagnÃ³stico", "Plano LogÃ­stico", "Roteiro de OperaÃ§Ã£o"]],
+  ["01.02", "CapacitaÃ§Ã£o de mobilizadores e lanÃ§amento do Programa de Coleta Seletiva Intermunicipal", "Meta 1", ["Plano de MobilizaÃ§Ã£o", "Mobilizadores capacitados", "Evento de lanÃ§amento"]],
+  ["01.03", "Estudos e implantaÃ§Ã£o dos PEVs nos municÃ­pios", "Meta 1", ["PEVs implantados", "NÃºmero por municÃ­pio definido"]],
+  ["01.04", "CapacitaÃ§Ã£o de operadores dos PEVs e aÃ§Ãµes de sensibilizaÃ§Ã£o da populaÃ§Ã£o", "Meta 1", ["Operadores capacitados", "AÃ§Ãµes de sensibilizaÃ§Ã£o"]],
+  ["01.05", "OperacionalizaÃ§Ã£o da coleta seletiva em todos os municÃ­pios consorciados", "Meta 1", ["t/mÃªs de secos", "t/mÃªs de orgÃ¢nicos", "Rotas operadas"]],
+  ["01.06", "Acompanhamento da logÃ­stica da coleta seletiva e das atividades de mobilizaÃ§Ã£o", "Meta 1", ["RelatÃ³rios de monitoramento", "RevisÃ£o do Plano LogÃ­stico", "RevisÃ£o do Plano de MobilizaÃ§Ã£o"]],
+  ["01.07", "SensibilizaÃ§Ã£o ambiental para coleta seletiva", "Meta 1", ["PeÃ§as grÃ¡ficas", "VÃ­deos", "Posts produzidos"]],
+  ["01.08", "CriaÃ§Ã£o de canal pÃºblico e desenvolvimento do SIGRS", "Meta 1", ["Canal ativo", "MÃ³dulos do SIGRS desenvolvidos"]],
+  ["01.09", "ConsolidaÃ§Ã£o final dos indicadores e RelatÃ³rio de Cumprimento de Objeto Final", "Meta 1", ["RelatÃ³rio de Cumprimento de Objeto Final"]],
+  ["02.01", "Projetos Executivos de Engenharia para reestruturaÃ§Ã£o da UTC", "Meta 2", ["Projeto Executivo", "ART"]],
+  ["02.02", "AvaliaÃ§Ã£o e reestruturaÃ§Ã£o dos processos internos da UTC", "Meta 2", ["POPs elaborados", "Oficinas"]],
+  ["02.03", "Obras e serviÃ§os de engenharia para reestruturaÃ§Ã£o da UTC", "Meta 2", ["Obra concluÃ­da", "mÂ² reformados"]],
+  ["02.04", "AquisiÃ§Ã£o e instalaÃ§Ã£o de equipamentos para a UTC", "Meta 2", ["Equipamentos individualizados"]],
+  ["02.05", "CapacitaÃ§Ã£o para uso de novos equipamentos e operaÃ§Ã£o do SIGRS", "Meta 2", ["Pessoas capacitadas", "Oficinas"]],
+  ["02.06", "OperaÃ§Ã£o e monitoramento da UTC revitalizada", "Meta 2", ["t/mÃªs de reciclÃ¡veis beneficiados", "RelatÃ³rios mensais"]],
+  ["03.01", "Projeto de ReadequaÃ§Ã£o do PÃ¡tio de compostagem", "Meta 3", ["Projeto Executivo", "ART", "Drenagem contemplada"]],
   ["03.02", "Plano Operacional de Compostagem e Aproveitamento do Composto Produzido", "Meta 3", ["Plano Operacional"]],
-  ["03.03", "Obras e serviços de engenharia para readequação do pátio de compostagem", "Meta 3", ["Obra concluída", "m² readequados"]],
-  ["03.04", "Capacitação dos operadores do pátio e mobilizadores municipais", "Meta 3", ["Operadores capacitados", "Mobilizadores capacitados"]],
-  ["03.05", "Operacionalização e monitoramento da compostagem e composteiras domésticas", "Meta 3", ["t/mês de orgânicos compostados", "t/mês de composto produzido", "Composteiras distribuídas"]],
-  ["03.06", "Implantação de hortas comunitárias e educação ambiental", "Meta 3", ["Hortas implantadas", "Termos de compromisso", "Escolas atendidas"]],
-  ["04.01", "Regulamento e gestão do Programa PSA", "Meta 4", ["Regulamento publicado"]],
-  ["04.02", "Mapeamento e cadastramento de catadores autônomos", "Meta 4", ["Catadores mapeados", "Catadores cadastrados"]],
-  ["04.03", "Capacitação e adesão ao Programa PSA", "Meta 4", ["Catadores capacitados", "Termos de adesão assinados", "Oficinas nos 6 municípios"]],
-  ["04.04", "Operacionalização do Programa PSA aos catadores", "Meta 4", ["Catadores ativos no PSA", "t/mês de recicláveis coletados", "Pagamentos efetuados"]]
+  ["03.03", "Obras e serviÃ§os de engenharia para readequaÃ§Ã£o do pÃ¡tio de compostagem", "Meta 3", ["Obra concluÃ­da", "mÂ² readequados"]],
+  ["03.04", "CapacitaÃ§Ã£o dos operadores do pÃ¡tio e mobilizadores municipais", "Meta 3", ["Operadores capacitados", "Mobilizadores capacitados"]],
+  ["03.05", "OperacionalizaÃ§Ã£o e monitoramento da compostagem e composteiras domÃ©sticas", "Meta 3", ["t/mÃªs de orgÃ¢nicos compostados", "t/mÃªs de composto produzido", "Composteiras distribuÃ­das"]],
+  ["03.06", "ImplantaÃ§Ã£o de hortas comunitÃ¡rias e educaÃ§Ã£o ambiental", "Meta 3", ["Hortas implantadas", "Termos de compromisso", "Escolas atendidas"]],
+  ["04.01", "Regulamento e gestÃ£o do Programa PSA", "Meta 4", ["Regulamento publicado"]],
+  ["04.02", "Mapeamento e cadastramento de catadores autÃ´nomos", "Meta 4", ["Catadores mapeados", "Catadores cadastrados"]],
+  ["04.03", "CapacitaÃ§Ã£o e adesÃ£o ao Programa PSA", "Meta 4", ["Catadores capacitados", "Termos de adesÃ£o assinados", "Oficinas nos 6 municÃ­pios"]],
+  ["04.04", "OperacionalizaÃ§Ã£o do Programa PSA aos catadores", "Meta 4", ["Catadores ativos no PSA", "t/mÃªs de reciclÃ¡veis coletados", "Pagamentos efetuados"]]
 ].map(([code, title, meta, indicators]) => ({
   id: `E-${code}`,
   part: parts[2],
   title,
   meta: { "Etapa": code, "Meta": meta },
   groups: [
-    { key: "validated", label: "Validação da etapa", choices: ["Manter", "Revisar redação", "Revisar indicadores", "Revisar itens vinculados", "Não se aplica"] },
+    { key: "validated", label: "ValidaÃ§Ã£o da etapa", choices: ["Manter", "Revisar redaÃ§Ã£o", "Revisar indicadores", "Revisar itens vinculados", "NÃ£o se aplica"] },
     { key: "indicators", label: "Indicadores vinculados", choices: indicators }
   ],
   numbers: indicators.map((label, index) => ({ key: `q${index + 1}`, label })),
-  fields: ["Município/local", "Responsável", "Observação"]
+  fields: ["MunicÃ­pio/local", "ResponsÃ¡vel", "ObservaÃ§Ã£o"]
 }));
 
 const expensesRaw = [
-  ["01.01", "Materiais permanentes (notebook+impressora)", "Desmembrar", "Notebook + Impressora multifuncional laser", "44.90.52", "Especificação final"],
-  ["01.01", "Consultorias técnicas", "Renomear", "Elaboração do diagnóstico da coleta seletiva", "33.90.39", "Produtos + qualificação"],
-  ["01.01", "Serviços de impressão", "Avaliar suprimir", "-", "-", "DECISÃO"],
-  ["01.02", "Consultorias técnicas", "Renomear", "Capacitação de mobilizadores da coleta seletiva", "33.90.39", "Produtos + qualificação"],
-  ["01.02", "Materiais gráficos", "Detalhar", "Folders + Cartazes", "33.90.30", "Quantidades"],
-  ["01.02", "Kits pedagógicos", "Renomear + detalhar", "Kits pedagógicos para mobilizadores", "33.90.30", "Quantidade por kit"],
-  ["01.02", "Estrutura de eventos", "Detalhar", "Estrutura de evento de lançamento", "33.90.39", "Definir composição"],
-  ["01.03", "Serviços Eng./Obras Civis", "Renomear + reclassificar", "Obras de implantação dos PEVs", "44.90.51", "Memorial + ART + SINAPI"],
+  ["01.01", "Materiais permanentes (notebook+impressora)", "Desmembrar", "Notebook + Impressora multifuncional laser", "44.90.52", "EspecificaÃ§Ã£o final"],
+  ["01.01", "Consultorias tÃ©cnicas", "Renomear", "ElaboraÃ§Ã£o do diagnÃ³stico da coleta seletiva", "33.90.39", "Produtos + qualificaÃ§Ã£o"],
+  ["01.01", "ServiÃ§os de impressÃ£o", "Avaliar suprimir", "-", "-", "DECISÃƒO"],
+  ["01.02", "Consultorias tÃ©cnicas", "Renomear", "CapacitaÃ§Ã£o de mobilizadores da coleta seletiva", "33.90.39", "Produtos + qualificaÃ§Ã£o"],
+  ["01.02", "Materiais grÃ¡ficos", "Detalhar", "Folders + Cartazes", "33.90.30", "Quantidades"],
+  ["01.02", "Kits pedagÃ³gicos", "Renomear + detalhar", "Kits pedagÃ³gicos para mobilizadores", "33.90.30", "Quantidade por kit"],
+  ["01.02", "Estrutura de eventos", "Detalhar", "Estrutura de evento de lanÃ§amento", "33.90.39", "Definir composiÃ§Ã£o"],
+  ["01.03", "ServiÃ§os Eng./Obras Civis", "Renomear + reclassificar", "Obras de implantaÃ§Ã£o dos PEVs", "44.90.51", "Memorial + ART + SINAPI"],
   ["01.03", "Consultorias", "Renomear", "Projetos de engenharia dos PEVs", "33.90.39", "Produtos"],
-  ["01.03", "Placas e sinalização", "Avaliar absorver", "Placas de sinalização dos PEVs", "33.90.30", "DECISÃO"],
-  ["01.03", "Containers e equipamentos", "Desmembrar", "Container metálico; tambor coletor; etc.", "44.90.52", "Lista + nº por PEV"],
+  ["01.03", "Placas e sinalizaÃ§Ã£o", "Avaliar absorver", "Placas de sinalizaÃ§Ã£o dos PEVs", "33.90.30", "DECISÃƒO"],
+  ["01.03", "Containers e equipamentos", "Desmembrar", "Container metÃ¡lico; tambor coletor; etc.", "44.90.52", "Lista + nÂº por PEV"],
   ["01.04", "Consultorias", "Renomear", "Treinamento de operadores dos PEVs", "33.90.39", "Produtos"],
-  ["01.04", "Materiais didáticos", "Detalhar", "Apostilas de treinamento PEV", "33.90.30", "Quantidades"],
-  ["01.04", "Estrutura para oficinas", "Detalhar", "Estrutura para oficinas", "33.90.39", "Composição"],
-  ["01.05", "Veículos (caminhão)", "Renomear + especificar", "Caminhão coletor compactador ou baú", "44.90.52", "Tipo exato"],
-  ["01.05", "Veículos (pick-up)", "Renomear + especificar", "Pick-up cabine dupla 4x4 diesel", "44.90.52", "Modelo de referência"],
-  ["01.05", "Veículos (carrinho de carga)", "Renomear", "Carrinho plataforma galvanizado 350kg", "44.90.52", "Especificações"],
-  ["01.05", "Veículos (carrinho 700L)", "Renomear + corrigir unidade", "Container de coleta seletiva 700L", "44.90.52", "Quantidade"],
-  ["01.05", "Veículos (carrinho elétrico)", "Renomear", "Carrinho elétrico de coleta seletiva", "44.90.52", "Especificações"],
-  ["01.05", "EPIs", "Renomear + detalhar", "EPIs coleta seletiva", "33.90.30", "Nº colaboradores"],
-  ["01.05", "Combustível", "Excluir recomendado", "-", "-", "DECISÃO"],
-  ["01.05", "Manutenção", "Excluir recomendado", "-", "-", "DECISÃO"],
-  ["01.05", "Equipe operacional", "Excluir ou justificar", "Equipe de coleta, se mantida", "33.90.36 ou 33.90.39", "DECISÃO + composição"],
-  ["01.06", "Consultorias", "Renomear", "Acompanhamento da logística e mobilização", "33.90.39", "Produtos"],
-  ["01.06", "Diárias", "Absorver na consultoria", "-", "-", "-"],
-  ["01.07", "Publicidade e marketing", "Renomear", "Materiais gráficos/digitais", "33.90.39", "Nº peças"],
-  ["01.07", "Impulsionamento online", "Avaliar suprimir", "-", "-", "DECISÃO"],
-  ["01.07", "Impressão de materiais", "Detalhar", "Folders A5, cartazes A3, banners", "33.90.30", "Quantidades"],
-  ["01.08", "Consultorias", "Renomear", "Canal de denúncias e SIGRS", "33.90.39", "Produtos"],
-  ["01.08", "Materiais permanentes", "Decidir aluguel vs aquisição", "Equipamentos de informática", "44.90.52 ou 33.90.39", "DECISÃO + especificação"],
-  ["01.08", "Suporte técnico", "Ajustar", "Suporte técnico SIGRS", "33.90.39", "-"],
-  ["01.09", "Consultorias", "Renomear", "Relatório de Cumprimento de Objeto Final", "33.90.39", "Produtos"],
+  ["01.04", "Materiais didÃ¡ticos", "Detalhar", "Apostilas de treinamento PEV", "33.90.30", "Quantidades"],
+  ["01.04", "Estrutura para oficinas", "Detalhar", "Estrutura para oficinas", "33.90.39", "ComposiÃ§Ã£o"],
+  ["01.05", "VeÃ­culos (caminhÃ£o)", "Renomear + especificar", "CaminhÃ£o coletor compactador ou baÃº", "44.90.52", "Tipo exato"],
+  ["01.05", "VeÃ­culos (pick-up)", "Renomear + especificar", "Pick-up cabine dupla 4x4 diesel", "44.90.52", "Modelo de referÃªncia"],
+  ["01.05", "VeÃ­culos (carrinho de carga)", "Renomear", "Carrinho plataforma galvanizado 350kg", "44.90.52", "EspecificaÃ§Ãµes"],
+  ["01.05", "VeÃ­culos (carrinho 700L)", "Renomear + corrigir unidade", "Container de coleta seletiva 700L", "44.90.52", "Quantidade"],
+  ["01.05", "VeÃ­culos (carrinho elÃ©trico)", "Renomear", "Carrinho elÃ©trico de coleta seletiva", "44.90.52", "EspecificaÃ§Ãµes"],
+  ["01.05", "EPIs", "Renomear + detalhar", "EPIs coleta seletiva", "33.90.30", "NÂº colaboradores"],
+  ["01.05", "CombustÃ­vel", "Excluir recomendado", "-", "-", "DECISÃƒO"],
+  ["01.05", "ManutenÃ§Ã£o", "Excluir recomendado", "-", "-", "DECISÃƒO"],
+  ["01.05", "Equipe operacional", "Excluir ou justificar", "Equipe de coleta, se mantida", "33.90.36 ou 33.90.39", "DECISÃƒO + composiÃ§Ã£o"],
+  ["01.06", "Consultorias", "Renomear", "Acompanhamento da logÃ­stica e mobilizaÃ§Ã£o", "33.90.39", "Produtos"],
+  ["01.06", "DiÃ¡rias", "Absorver na consultoria", "-", "-", "-"],
+  ["01.07", "Publicidade e marketing", "Renomear", "Materiais grÃ¡ficos/digitais", "33.90.39", "NÂº peÃ§as"],
+  ["01.07", "Impulsionamento online", "Avaliar suprimir", "-", "-", "DECISÃƒO"],
+  ["01.07", "ImpressÃ£o de materiais", "Detalhar", "Folders A5, cartazes A3, banners", "33.90.30", "Quantidades"],
+  ["01.08", "Consultorias", "Renomear", "Canal de denÃºncias e SIGRS", "33.90.39", "Produtos"],
+  ["01.08", "Materiais permanentes", "Decidir aluguel vs aquisiÃ§Ã£o", "Equipamentos de informÃ¡tica", "44.90.52 ou 33.90.39", "DECISÃƒO + especificaÃ§Ã£o"],
+  ["01.08", "Suporte tÃ©cnico", "Ajustar", "Suporte tÃ©cnico SIGRS", "33.90.39", "-"],
+  ["01.09", "Consultorias", "Renomear", "RelatÃ³rio de Cumprimento de Objeto Final", "33.90.39", "Produtos"],
   ["02.01", "Consultorias", "Renomear", "Projetos de engenharia da UTC", "33.90.39", "Produtos"],
-  ["02.02", "Consultorias", "Renomear", "Reestruturação dos processos internos da UTC", "33.90.39", "Nº oficinas"],
-  ["02.02", "Materiais gráficos", "Avaliar suprimir", "-", "-", "DECISÃO"],
-  ["02.02", "Reuniões técnicas", "Excluir", "-", "-", "-"],
-  ["02.03", "Obras e Serviços de Engenharia", "Renomear", "Obras de reestruturação da UTC", "44.90.51", "Memorial + ART"],
+  ["02.02", "Consultorias", "Renomear", "ReestruturaÃ§Ã£o dos processos internos da UTC", "33.90.39", "NÂº oficinas"],
+  ["02.02", "Materiais grÃ¡ficos", "Avaliar suprimir", "-", "-", "DECISÃƒO"],
+  ["02.02", "ReuniÃµes tÃ©cnicas", "Excluir", "-", "-", "-"],
+  ["02.03", "Obras e ServiÃ§os de Engenharia", "Renomear", "Obras de reestruturaÃ§Ã£o da UTC", "44.90.51", "Memorial + ART"],
   ["02.03", "Materiais de consumo", "Realocar em obras", "-", "-", "-"],
-  ["02.03", "Serviços Complementares", "Realocar em obras", "-", "-", "-"],
-  ["02.04", "Equipamentos permanentes", "Desmembrar", "Esteira, prensa, balança, etc.", "44.90.52", "Lista + especificações"],
-  ["02.04", "Tambor de óleo", "Reclassificar", "Tambor armazenamento óleo 200L", "33.90.30", "-"],
-  ["02.04", "Móveis e materiais permanentes", "Desmembrar parcialmente", "Mobiliário + eletro + utensílios", "44.90.52 / 33.90.30", "Quantidades"],
-  ["02.04", "Serviços de instalação", "Avaliar absorver", "-", "-", "DECISÃO"],
-  ["02.05", "Consultoria especializada", "Renomear", "Treinamento da equipe da UTC", "33.90.39", "Nº oficinas"],
-  ["02.06", "Equipamentos individuais (EPIs)", "Renomear + ajustar", "EPIs UTC", "33.90.30", "Nº colaboradores UTC"],
-  ["02.06", "Despesas operacionais", "Excluir recomendado", "-", "-", "DECISÃO"],
-  ["02.06", "Consultor PF - segurança", "Renomear", "Supervisão da Segurança do Trabalho", "33.90.36", "Atividades"],
-  ["02.06", "Consultor PF - qualidade", "Renomear", "Supervisão da Qualidade Ambiental", "33.90.36", "Atividades"],
-  ["03.01", "Consultorias", "Renomear", "Projetos para pátio de compostagem", "33.90.39", "Produtos"],
+  ["02.03", "ServiÃ§os Complementares", "Realocar em obras", "-", "-", "-"],
+  ["02.04", "Equipamentos permanentes", "Desmembrar", "Esteira, prensa, balanÃ§a, etc.", "44.90.52", "Lista + especificaÃ§Ãµes"],
+  ["02.04", "Tambor de Ã³leo", "Reclassificar", "Tambor armazenamento Ã³leo 200L", "33.90.30", "-"],
+  ["02.04", "MÃ³veis e materiais permanentes", "Desmembrar parcialmente", "MobiliÃ¡rio + eletro + utensÃ­lios", "44.90.52 / 33.90.30", "Quantidades"],
+  ["02.04", "ServiÃ§os de instalaÃ§Ã£o", "Avaliar absorver", "-", "-", "DECISÃƒO"],
+  ["02.05", "Consultoria especializada", "Renomear", "Treinamento da equipe da UTC", "33.90.39", "NÂº oficinas"],
+  ["02.06", "Equipamentos individuais (EPIs)", "Renomear + ajustar", "EPIs UTC", "33.90.30", "NÂº colaboradores UTC"],
+  ["02.06", "Despesas operacionais", "Excluir recomendado", "-", "-", "DECISÃƒO"],
+  ["02.06", "Consultor PF - seguranÃ§a", "Renomear", "SupervisÃ£o da SeguranÃ§a do Trabalho", "33.90.36", "Atividades"],
+  ["02.06", "Consultor PF - qualidade", "Renomear", "SupervisÃ£o da Qualidade Ambiental", "33.90.36", "Atividades"],
+  ["03.01", "Consultorias", "Renomear", "Projetos para pÃ¡tio de compostagem", "33.90.39", "Produtos"],
   ["03.02", "Consultorias", "Renomear", "Plano Operacional de Compostagem", "33.90.39", "Produtos"],
-  ["03.03", "Serviços de engenharia", "Renomear", "Obras do pátio de compostagem", "44.90.51", "Memorial + ART"],
-  ["03.04", "Consultorias", "Renomear", "Capacitação em compostagem", "33.90.39", "Atividades"],
+  ["03.03", "ServiÃ§os de engenharia", "Renomear", "Obras do pÃ¡tio de compostagem", "44.90.51", "Memorial + ART"],
+  ["03.04", "Consultorias", "Renomear", "CapacitaÃ§Ã£o em compostagem", "33.90.39", "Atividades"],
   ["03.05", "Materiais de consumo", "Desmembrar profundamente", "Sacos, EPIs, etiquetas, composteiras, ferramentas", "33.90.30", "Quantitativos"],
-  ["03.05", "Termômetro de compostagem", "Criar equipamento", "Termômetro de compostagem", "44.90.52", "Modelo"],
+  ["03.05", "TermÃ´metro de compostagem", "Criar equipamento", "TermÃ´metro de compostagem", "44.90.52", "Modelo"],
   ["03.05", "Medidor de umidade", "Criar equipamento", "Medidor de umidade de compostagem", "44.90.52", "Modelo"],
-  ["03.05", "Balança de pátio", "Criar equipamento", "Balança de pátio", "44.90.52", "Capacidade"],
-  ["03.05", "Transporte", "Excluir recomendado", "-", "-", "DECISÃO"],
-  ["03.05", "Despesas operacionais", "Desmembrar ou excluir", "-", "-", "DECISÃO"],
-  ["03.06", "Equipe de apoio", "Renomear", "Implantação de hortas comunitárias", "33.90.39", "Nº hortas"],
-  ["03.06", "Mudas e insumos", "Detalhar", "Mudas + insumos orgânicos", "33.90.30", "Especificações agronômicas"],
-  ["03.06", "Ferramentas e materiais permanentes", "Desmembrar", "Ferramentas agrícolas + materiais permanentes", "33.90.30 / 44.90.52", "Especificações"],
+  ["03.05", "BalanÃ§a de pÃ¡tio", "Criar equipamento", "BalanÃ§a de pÃ¡tio", "44.90.52", "Capacidade"],
+  ["03.05", "Transporte", "Excluir recomendado", "-", "-", "DECISÃƒO"],
+  ["03.05", "Despesas operacionais", "Desmembrar ou excluir", "-", "-", "DECISÃƒO"],
+  ["03.06", "Equipe de apoio", "Renomear", "ImplantaÃ§Ã£o de hortas comunitÃ¡rias", "33.90.39", "NÂº hortas"],
+  ["03.06", "Mudas e insumos", "Detalhar", "Mudas + insumos orgÃ¢nicos", "33.90.30", "EspecificaÃ§Ãµes agronÃ´micas"],
+  ["03.06", "Ferramentas e materiais permanentes", "Desmembrar", "Ferramentas agrÃ­colas + materiais permanentes", "33.90.30 / 44.90.52", "EspecificaÃ§Ãµes"],
   ["04.01", "Consultorias", "Renomear", "Regulamento e procedimentos PSA", "33.90.39", "Produtos"],
-  ["04.02", "Consultorias", "Renomear", "Mapeamento de catadores autônomos", "33.90.39", "Produtos"],
+  ["04.02", "Consultorias", "Renomear", "Mapeamento de catadores autÃ´nomos", "33.90.39", "Produtos"],
   ["04.02", "Transporte", "Excluir", "-", "-", "-"],
-  ["04.03", "Consultorias", "Renomear", "Capacitação dos catadores", "33.90.39", "Atividades"],
-  ["04.03", "Estrutura de apoio", "Renomear", "Alimentação nas capacitações", "33.90.30", "Composição"],
-  ["04.03", "Materiais pedagógicos", "Detalhar", "Cartilha, folder, caderno", "33.90.30", "Quantidades"],
-  ["04.04", "Pagamento PSA", "Detalhar + majorar valor", "Pagamento dos serviços via PSA", "33.90.36 ou 33.90.48", "Nº catadores + valor + critério"],
-  ["04.04", "Materiais de Consumo", "Avaliar suprimir", "-", "-", "DECISÃO"]
+  ["04.03", "Consultorias", "Renomear", "CapacitaÃ§Ã£o dos catadores", "33.90.39", "Atividades"],
+  ["04.03", "Estrutura de apoio", "Renomear", "AlimentaÃ§Ã£o nas capacitaÃ§Ãµes", "33.90.30", "ComposiÃ§Ã£o"],
+  ["04.03", "Materiais pedagÃ³gicos", "Detalhar", "Cartilha, folder, caderno", "33.90.30", "Quantidades"],
+  ["04.04", "Pagamento PSA", "Detalhar + majorar valor", "Pagamento dos serviÃ§os via PSA", "33.90.36 ou 33.90.48", "NÂº catadores + valor + critÃ©rio"],
+  ["04.04", "Materiais de Consumo", "Avaliar suprimir", "-", "-", "DECISÃƒO"]
 ];
 
 const expenses = expensesRaw.map(([stage, item, action, finalItem, nature, gap], index) => ({
@@ -191,31 +191,31 @@ const expenses = expensesRaw.map(([stage, item, action, finalItem, nature, gap],
   meta: { "Etapa": stage, "Item atual": item, "Item final proposto": finalItem, "Natureza": nature, "Lacuna": gap },
   groups: [
     { key: "recommendation", label: "Tratamento", choices: actionChoices(action) },
-    { key: "nature", label: "Natureza de despesa", choices: ["33.90.30", "33.90.36", "33.90.39", "33.90.48", "44.90.51", "44.90.52", "Não se aplica"] },
-    { key: "quotes", label: "Cotações", choices: ["Cotação 1 obtida", "Cotação 2 obtida", "Cotação 3 obtida", "Pesquisa oficial", "Pendente"] }
+    { key: "nature", label: "Natureza de despesa", choices: ["33.90.30", "33.90.36", "33.90.39", "33.90.48", "44.90.51", "44.90.52", "NÃ£o se aplica"] },
+    { key: "quotes", label: "CotaÃ§Ãµes", choices: ["CotaÃ§Ã£o 1 obtida", "CotaÃ§Ã£o 2 obtida", "CotaÃ§Ã£o 3 obtida", "Pesquisa oficial", "Pendente"] }
   ],
-  numbers: [{ key: "quantity", label: "Quantidade" }, { key: "unitValue", label: "Valor unitário estimado" }],
-  fields: ["Especificação escolhida", "Justificativa / observação"]
+  numbers: [{ key: "quantity", label: "Quantidade" }, { key: "unitValue", label: "Valor unitÃ¡rio estimado" }],
+  fields: ["EspecificaÃ§Ã£o escolhida", "Justificativa / observaÃ§Ã£o"]
 }));
 
 const finance = [
-  ["G-01", "Combustível", "01.05", "246.807,90", ["Excluir e remanejar", "Manter com justificativa", "Remanejar parcialmente"]],
-  ["G-02", "Manutenção", "01.05", "47.100,00", ["Excluir e remanejar", "Manter com justificativa", "Remanejar parcialmente"]],
+  ["G-01", "CombustÃ­vel", "01.05", "246.807,90", ["Excluir e remanejar", "Manter com justificativa", "Remanejar parcialmente"]],
+  ["G-02", "ManutenÃ§Ã£o", "01.05", "47.100,00", ["Excluir e remanejar", "Manter com justificativa", "Remanejar parcialmente"]],
   ["G-03", "Equipe operacional", "01.05", "1.246.426,50", ["Excluir", "Manter com justificativa", "Reduzir e remanejar"]],
   ["G-04", "Despesas operacionais", "02.06", "26.400,00", ["Excluir e remanejar", "Manter com justificativa"]],
   ["G-05", "Transporte", "03.05", "9.000,00", ["Excluir e remanejar", "Manter com justificativa"]],
   ["G-06", "Despesas operacionais", "03.05", "63.151,20", ["Desmembrar", "Excluir", "Manter com justificativa"]],
   ["G-07", "Transporte", "04.02", "1.050,00", ["Excluir e absorver", "Manter com justificativa"]],
-  ["G-08", "Reuniões técnicas", "02.02", "2.000,00", ["Excluir e absorver", "Manter com justificativa"]],
+  ["G-08", "ReuniÃµes tÃ©cnicas", "02.02", "2.000,00", ["Excluir e absorver", "Manter com justificativa"]],
   ["G-09", "Materiais de consumo", "02.03", "72.510,32", ["Realocar em obras", "Manter separado"]],
-  ["G-10", "Serviços Complementares", "02.03", "114.748,49", ["Realocar em obras", "Manter separado"]]
+  ["G-10", "ServiÃ§os Complementares", "02.03", "114.748,49", ["Realocar em obras", "Manter separado"]]
 ].map(([id, title, stage, value, choices]) => ({
   id,
   part: parts[4],
   title,
   meta: { "Etapa": stage, "Valor atual (R$)": value },
   groups: [
-    { key: "financialDecision", label: "Decisão financeira", choices },
+    { key: "financialDecision", label: "DecisÃ£o financeira", choices },
     { key: "destination", label: "Destino do remanejamento", choices: ["PSA", "Equipamentos UTC", "Composteiras e hortas", "Obras PEVs", "Obras UTC", "A definir"] }
   ],
   numbers: [{ key: "remapValue", label: "Valor a remanejar (R$)" }],
@@ -223,112 +223,30 @@ const finance = [
 }));
 
 const decisions = [
-  ["D-01", "Estrutura atual de gestão de resíduos", ["Catadores quantificados", "Autônomos/formalizados definidos", "Cooperativas identificadas", "Contratos vigentes levantados", "Coleta atual mapeada", "Lixões identificados"]],
-  ["D-02", "PEVs", ["Quantidade por município", "Modelo físico", "Tipos de resíduos recebidos", "Operador fixo", "Energia/drenagem/balança/câmeras", "Endereços"]],
-  ["D-03", "UTC", ["Capacidade atual", "Capacidade projetada", "Toneladas processadas hoje", "Trabalhadores e vínculo", "Licença ambiental", "Comercialização formal", "Lista de equipamentos", "Nº de EPIs"]],
-  ["D-04", "Compostagem", ["Volume de orgânicos", "Origem dos orgânicos", "Método", "Capacidade do pátio", "Composteiras domésticas", "Hortas comunitárias"]],
-  ["D-05", "PSA", ["Nº de catadores", "Critério de pagamento", "Valor mensal", "Forma de aferição", "Sustentabilidade pós-projeto", "Abrangência autônomos/cooperados"]],
-  ["D-06", "Mobilização e educação ambiental", ["Escolas por município", "Oficinas por meta", "Participantes por oficina", "Equipe fixa ou consultoria", "Plano de Mobilização"]],
-  ["D-07", "SIGRS", ["Adaptar sistema existente", "Desenvolver do zero", "SaaS", "Módulos definidos", "Operação definida", "Aluguel vs aquisição de computadores"]],
-  ["D-08", "Especificações técnicas", ["Caminhão", "Pick-up", "Carrinho elétrico", "Containers", "Notebook/impressora"]]
+  ["D-01", "Estrutura atual de gestÃ£o de resÃ­duos", ["Catadores quantificados", "AutÃ´nomos/formalizados definidos", "Cooperativas identificadas", "Contratos vigentes levantados", "Coleta atual mapeada", "LixÃµes identificados"]],
+  ["D-02", "PEVs", ["Quantidade por municÃ­pio", "Modelo fÃ­sico", "Tipos de resÃ­duos recebidos", "Operador fixo", "Energia/drenagem/balanÃ§a/cÃ¢meras", "EndereÃ§os"]],
+  ["D-03", "UTC", ["Capacidade atual", "Capacidade projetada", "Toneladas processadas hoje", "Trabalhadores e vÃ­nculo", "LicenÃ§a ambiental", "ComercializaÃ§Ã£o formal", "Lista de equipamentos", "NÂº de EPIs"]],
+  ["D-04", "Compostagem", ["Volume de orgÃ¢nicos", "Origem dos orgÃ¢nicos", "MÃ©todo", "Capacidade do pÃ¡tio", "Composteiras domÃ©sticas", "Hortas comunitÃ¡rias"]],
+  ["D-05", "PSA", ["NÂº de catadores", "CritÃ©rio de pagamento", "Valor mensal", "Forma de aferiÃ§Ã£o", "Sustentabilidade pÃ³s-projeto", "AbrangÃªncia autÃ´nomos/cooperados"]],
+  ["D-06", "MobilizaÃ§Ã£o e educaÃ§Ã£o ambiental", ["Escolas por municÃ­pio", "Oficinas por meta", "Participantes por oficina", "Equipe fixa ou consultoria", "Plano de MobilizaÃ§Ã£o"]],
+  ["D-07", "SIGRS", ["Adaptar sistema existente", "Desenvolver do zero", "SaaS", "MÃ³dulos definidos", "OperaÃ§Ã£o definida", "Aluguel vs aquisiÃ§Ã£o de computadores"]],
+  ["D-08", "EspecificaÃ§Ãµes tÃ©cnicas", ["CaminhÃ£o", "Pick-up", "Carrinho elÃ©trico", "Containers", "Notebook/impressora"]]
 ].map(([id, title, choices]) => ({
   id,
   part: parts[5],
   title,
   meta: { "Bloco": title },
   groups: [
-    { key: "checklist", label: "Campos possíveis", choices },
-    { key: "state", label: "Situação", choices: ["Completo", "Parcial", "Pendente CONDAPAV", "Pendente consultor", "Não se aplica"] }
+    { key: "checklist", label: "Campos possÃ­veis", choices },
+    { key: "state", label: "SituaÃ§Ã£o", choices: ["Completo", "Parcial", "Pendente CONDAPAV", "Pendente consultor", "NÃ£o se aplica"] }
   ],
-  fields: ["Responsável", "Prazo", "Observação"]
+  fields: ["ResponsÃ¡vel", "Prazo", "ObservaÃ§Ã£o"]
 }));
 
 const fields = [...architecture, ...indicators, ...stages, ...expenses, ...finance, ...decisions];
 let state = loadState();
 let activePart = "";
 let activeView = "matriz";
-
-const budgetScreens = {
-  orcamento1: {
-    title: "Opção 1 - Orçamentação",
-    subtitle: "Planilha orçamentária detalhada vfinal, organizada por meta, etapa e item de despesa.",
-    file: "planilha_orcamentaria_condapav_vfinal.md"
-  },
-  orcamento2: {
-    title: "Opção 2 - Orçamentação",
-    subtitle: "Versão vfinal corrigida, com médias/medianas de cotações e fechamento realocado para obras.",
-    file: "06_ORCAMENTO_CORRIGIDO_vfinal.md"
-  },
-  orcamento21: {
-    title: "OpÃ§Ã£o 2.1 - OrÃ§amentaÃ§Ã£o",
-    subtitle: "VersÃ£o ajustada: SIGRS por APF, PEVs realistas, compactadores e PSA com 16 catadores.",
-    file: "08_ORCAMENTO_v2.1_AJUSTADO.md"
-  },
-  comparativo: {
-    title: "Comparativo entre propostas orçamentárias",
-    subtitle: "Diferenças de valores, composição e decisões críticas entre a Opção 1 e a Opção 2.",
-    file: "Comparativo interno"
-  },
-  redacaoTransferegov: {
-    title: "Redação Provisória - Transfere.gov",
-    subtitle: "Blocos prontos para preenchimento dos campos do sistema Transfere.gov.",
-    file: "07_REDACOES_FINAIS_Campos_Sistema.md"
-  }
-};
-const budgetCache = {};
-
-budgetScreens.orcamento21.title = "Opcao 2.1 - Orcamentacao";
-budgetScreens.orcamento21.subtitle = "Versao ajustada: SIGRS por APF, PEVs realistas, compactadores e PSA com 16 catadores.";
-budgetScreens.comparativo.subtitle = "Diferencas de valores, composicao e decisoes criticas entre as tres opcoes.";
-
-const stageDescriptionFiles = [
-  ["Meta 1 - Etapas 01.01 a 01.05", "plano_trabalho_condapav_por_etapa_vfinal Meta 1 Etapas 1 a 5.md"],
-  ["Meta 1 - Etapas 01.06 a 01.09", "plano_trabalho_condapav_a_partir_etapa_0106 a 0109.md"],
-  ["Meta 2 - UTC até Etapa 02.05", "plano_trabalho_condapav_meta_2_utc ate 0205.md"],
-  ["Meta 2 - Etapa 02.06", "plano_trabalho_condapav_meta_2_etapa_0206.md"],
-  ["Meta 3 - Etapas 03.01 a 03.04", "plano_trabalho_condapav_meta_3_compostagem etapas 0301 a 0304.md"],
-  ["Meta 3 - Etapas 03.05 a 03.06", "plano_trabalho_condapav_meta_3_etapa_0305 a 0306.md"],
-  ["Meta 4 - PSA", "plano_trabalho_condapav_meta_4_psa.md"]
-];
-
-const comparisonRows = [
-  ["Valor global", "R$ 7.487.148,85", "R$ 7.487.148,85", "Igual", "As duas fecham exatamente no mesmo total."],
-  ["Meta 1", "R$ 4.479.974,89", "R$ 4.492.289,31", "+ R$ 12.314,42", "Opção 2 força o perfil para 60,00%."],
-  ["Meta 2", "R$ 1.871.937,97", "R$ 1.871.787,21", "- R$ 150,76", "Diferença residual de ajuste."],
-  ["Meta 3", "R$ 386.521,10", "R$ 374.357,44", "- R$ 12.163,66", "Opção 2 reduz a Meta 3 para 5,00%."],
-  ["Meta 4", "R$ 748.714,89", "R$ 748.714,89", "Igual", "Mantém 10,00% para inclusão produtiva/PSA."],
-  ["Pick-up", "R$ 259.966,67", "R$ 154.350,00", "- R$ 105.616,67", "Opção 2 corrige para média das 3 cotações."],
-  ["Notebook", "R$ 6.201,00", "R$ 3.899,00", "- R$ 2.302,00/un.", "Opção 2 troca preço médio por mediana, retirando cotação de pacote."],
-  ["Container 700 L", "R$ 2.699,67", "R$ 1.807,00", "- R$ 892,67/un.", "Opção 2 usa mediana/cotação base."],
-  ["Contentor 500 L", "R$ 2.771,83", "R$ 969,86", "- R$ 1.801,97/un.", "Opção 2 corrige para média da cotação 500 L."],
-  ["SIGRS", "R$ 585.255,94", "R$ 160.786,76", "- R$ 424.469,18", "Opção 2 volta ao valor cadastrado original e marca risco de subdimensionamento."],
-  ["Obras PEVs", "R$ 1.594.857,33", "R$ 2.210.266,35", "+ R$ 615.409,02", "Opção 2 concentra fechamento nas obras dos PEVs."],
-  ["Obra UTC", "R$ 1.594.857,33", "R$ 1.636.857,30", "+ R$ 41.999,97", "Opção 2 reforça obra, mantendo ajuste após projeto básico/ART."],
-  ["Obra pátio", "R$ 187.323,47", "R$ 210.889,62", "+ R$ 23.566,15", "Opção 2 absorve fechamento no pátio de compostagem."],
-  ["Gestão/RH do PSA", "R$ 219.153,33", "Removida", "- R$ 219.153,33", "Opção 2 absorve a gestão pela equipe própria do CONDAPAV + Produto 24."],
-  ["Pagamento direto PSA", "R$ 427.446,60", "R$ 691.200,00", "+ R$ 263.753,40", "Opção 2 prioriza pagamento direto aos 12 catadores."],
-  ["Custeio x Investimento", "Não consolidado no resumo final", "Investimento R$ 5.032.546,00 / Custeio R$ 2.454.602,85", "Mudança relevante", "Opção 2 sobe investimento para 67,2%; precisa conferir limite do edital."]
-];
-
-const comparisonRowsV3 = [
-  ["Valor global", "R$ 7.487.148,85", "R$ 7.487.148,85", "R$ 7.487.148,85", "As tres fecham exatamente no valor global."],
-  ["Meta 1", "R$ 4.479.974,89 (59,84%)", "R$ 4.492.289,31 (60,00%)", "R$ 4.492.289,31 (60,00%)", "Opcoes 2 e 2.1 estabilizam o perfil em 60%."],
-  ["Meta 2", "R$ 1.871.937,97", "R$ 1.871.787,21", "R$ 1.871.787,21", "Opcao 2.1 mantem a Meta 2 da Opcao 2."],
-  ["Meta 3", "R$ 386.521,10", "R$ 374.357,44", "R$ 374.357,44", "Opcao 2.1 mantem a Meta 3 da Opcao 2."],
-  ["Meta 4", "R$ 748.714,89", "R$ 748.714,89", "R$ 748.714,89", "Todas preservam 10% para inclusao produtiva/PSA."],
-  ["Obras PEVs", "R$ 1.594.857,33", "R$ 2.210.266,35", "R$ 720.000,00", "Opcao 2.1 corrige o ponto mais sensivel da Opcao 2 e adota obra de PEVs mais realista."],
-  ["Compactadores municipais", "Nao previsto", "Nao previsto", "3 un. / R$ 1.291.053,11", "Opcao 2.1 usa a economia dos PEVs para viabilizar frota municipal."],
-  ["SIGRS", "R$ 585.255,94", "R$ 160.786,76", "R$ 360.000,00", "Opcao 2.1 fica no meio-termo: mais robusta que a Opcao 2, menor que a Opcao 1."],
-  ["Pick-up", "R$ 259.966,67", "R$ 154.350,00", "R$ 154.350,00", "Opcoes 2 e 2.1 usam media das cotacoes."],
-  ["Notebook", "R$ 6.201,00", "R$ 3.899,00", "R$ 3.899,00", "Opcoes 2 e 2.1 retiram distorcao de cotacao por pacote."],
-  ["Container 700 L", "R$ 2.699,67", "R$ 1.807,00", "R$ 1.807,00", "Opcoes 2 e 2.1 usam mediana/cotacao base."],
-  ["Contentor 500 L", "R$ 2.771,83", "R$ 969,86", "R$ 969,86", "Opcoes 2 e 2.1 corrigem o valor unitario."],
-  ["Pagamento direto PSA", "R$ 427.446,60", "R$ 691.200,00 (12 catadores)", "R$ 598.400,00 (16 catadores)", "Opcao 2 maximiza repasse mensal; Opcao 2.1 amplia beneficiarios e alonga para 17 meses."],
-  ["Gestao do PSA", "R$ 219.153,33", "Removida", "R$ 92.124,65", "Opcao 2.1 restaura gestao enxuta para dar governanca ao PSA."],
-  ["Kit/EPIs PSA", "12 catadores", "12 catadores", "16 catadores", "Opcao 2.1 exige atualizacao dos indicadores e redacoes da Meta 4."],
-  ["Custeio x Investimento", "Nao consolidado no resumo final", "Investimento 67,2% / Custeio 32,8%", "Investimento 64,6% / Custeio 35,4%", "Opcao 2.1 reduz o peso de investimento, mas ainda exige checagem de teto do edital."],
-  ["Leitura geral", "Mais aberta, mas com precos altos e SIGRS elevado", "Mais defensavel em cotacoes, porem PEVs muito altos e SIGRS baixo", "Mais equilibrada entre APF, PEVs, frota e PSA", "Opcao 2.1 e a candidata mais equilibrada, sujeita a validacao dos compactadores e do limite custeio/investimento."]
-];
 
 const consolidatedDefaults = {
   ...buildExpenseDefaults(),
@@ -343,52 +261,52 @@ const consolidatedDefaults = {
     prazo: "01/05/2026 a 31/05/2028",
     justificativa_observacao: "Coleta de organicos executada pelas prefeituras, mediante Termo de Parceria, com destinacao ao patio de compostagem da UTC."
   }),
-  "A-03": defaultRecord("respondido", ["executor:Servidores municipais", "executor:Sem operador", "funding:Município", "decision:Confirmado"], {}, {
+  "A-03": defaultRecord("respondido", ["executor:Servidores municipais", "executor:Sem operador", "funding:MunicÃ­pio", "decision:Confirmado"], {}, {
     responsavel: "Prefeituras consorciadas, com coordenacao do CONDAPAV",
     prazo: "16/03/2026 a 15/01/2027",
     justificativa_observacao: "PEVs operados em modelo hibrido, com ou sem operador fixo, conforme definicao de cada municipio no Plano Logistico."
   }),
-  "A-04": defaultRecord("respondido", ["executor:Operador fixo", "executor:Câmera", "funding:Município", "decision:Confirmado"], {}, {
+  "A-04": defaultRecord("respondido", ["executor:Operador fixo", "executor:CÃ¢mera", "funding:MunicÃ­pio", "decision:Confirmado"], {}, {
     responsavel: "Prefeituras consorciadas",
     prazo: "Apos implantacao dos PEVs",
     justificativa_observacao: "Controle de entrada definido conforme projeto de cada PEV, podendo combinar operador, camera e rotina municipal."
   }),
-  "A-05": defaultRecord("respondido", ["executor:Servidores efetivos", "funding:Consórcio", "funding:Receita venda recicláveis", "decision:Confirmado"], {}, {
+  "A-05": defaultRecord("respondido", ["executor:Servidores efetivos", "funding:ConsÃ³rcio", "funding:Receita venda reciclÃ¡veis", "decision:Confirmado"], {}, {
     responsavel: "CONDAPAV",
     prazo: "01/05/2026 a 31/05/2028",
     justificativa_observacao: "UTC operada pelo CONDAPAV com 18 colaboradores CLT; Meta 2 restrita a triagem e beneficiamento de reciclaveis secos."
   }),
-  "A-06": defaultRecord("respondido", ["executor:Equipe própria UTC", "funding:Consórcio", "funding:Receita venda composto", "decision:Confirmado"], {}, {
+  "A-06": defaultRecord("respondido", ["executor:Equipe prÃ³pria UTC", "funding:ConsÃ³rcio", "funding:Receita venda composto", "decision:Confirmado"], {}, {
     responsavel: "CONDAPAV",
     prazo: "Apos readequacao do patio de compostagem",
     justificativa_observacao: "Operacao vinculada ao Plano Operacional de Compostagem, com aproveitamento do composto produzido."
   }),
-  "A-07": defaultRecord("respondido", ["executor:Consultoria contratada", "executor:Mobilizadores locais", "executor:Escolas", "funding:Município", "funding:Consórcio", "decision:Confirmado"], {}, {
+  "A-07": defaultRecord("respondido", ["executor:Consultoria contratada", "executor:Mobilizadores locais", "executor:Escolas", "funding:MunicÃ­pio", "funding:ConsÃ³rcio", "decision:Confirmado"], {}, {
     responsavel: "CONDAPAV, consultoria contratada e prefeituras",
     prazo: "Durante as Metas 1, 3 e 4",
     justificativa_observacao: "Mobilizacao social, campanhas, oficinas, hortas escolares e educacao ambiental integradas ao plano de trabalho."
   }),
-  "A-08": defaultRecord("respondido", ["executor:Empresa contratada", "funding:Consórcio - licença/manutenção", "decision:Confirmado"], {}, {
+  "A-08": defaultRecord("respondido", ["executor:Empresa contratada", "funding:ConsÃ³rcio - licenÃ§a/manutenÃ§Ã£o", "decision:Confirmado"], {}, {
     responsavel: "Empresa contratada + CONDAPAV",
     prazo: "01/01/2028 a 30/04/2028",
     justificativa_observacao: "Desenvolvimento e implantacao do SIGRS e Canal do Cidadao com 8 modulos, 8 funcionalidades e integracao dos 6 municipios."
   }),
-  "A-09": defaultRecord("respondido", ["executor:Equipe interna", "executor:Suporte do fornecedor", "funding:Consórcio", "decision:Confirmado"], {}, {
+  "A-09": defaultRecord("respondido", ["executor:Equipe interna", "executor:Suporte do fornecedor", "funding:ConsÃ³rcio", "decision:Confirmado"], {}, {
     responsavel: "CONDAPAV + fornecedor do SIGRS",
     prazo: "10 meses de suporte tecnico previstos",
     justificativa_observacao: "Suporte tecnico ao SIGRS previsto como servico mensal, com operacao continuada pela equipe do consorcio."
   }),
-  "A-10": defaultRecord("respondido", ["executor:Consultoria", "executor:Escolas", "funding:Município", "decision:Confirmado"], {}, {
+  "A-10": defaultRecord("respondido", ["executor:Consultoria", "executor:Escolas", "funding:MunicÃ­pio", "decision:Confirmado"], {}, {
     responsavel: "Consultoria contratada, escolas e prefeituras",
     prazo: "Meta 3, Etapa 03.06",
     justificativa_observacao: "Implantacao de 6 hortas escolares e atividades de educacao ambiental, incluindo oficinas, registros e relatorios."
   }),
-  "A-11": defaultRecord("respondido", ["executor:Consórcio - conta vinculada", "funding:Definir fonte permanente", "decision:Confirmado"], {}, {
+  "A-11": defaultRecord("respondido", ["executor:ConsÃ³rcio - conta vinculada", "funding:Definir fonte permanente", "decision:Confirmado"], {}, {
     responsavel: "CONDAPAV",
     prazo: "Meta 4, Etapa 04.04",
     justificativa_observacao: "PSA majorado para 10% do valor global, com 12 catadores por 12 meses e pagamento mensal por servicos ambientais."
   }),
-  "A-12": defaultRecord("respondido", ["executor:Município", "executor:Consórcio", "executor:Não previsto no projeto - auto-sustentação", "funding:Confirmação obrigatória de fonte", "decision:Confirmado"], {}, {
+  "A-12": defaultRecord("respondido", ["executor:MunicÃ­pio", "executor:ConsÃ³rcio", "executor:NÃ£o previsto no projeto - auto-sustentaÃ§Ã£o", "funding:ConfirmaÃ§Ã£o obrigatÃ³ria de fonte", "decision:Confirmado"], {}, {
     responsavel: "CONDAPAV e prefeituras consorciadas",
     prazo: "Pos-projeto e operacao continuada",
     justificativa_observacao: "Combustivel, manutencao, energia e despesas operacionais genericas foram excluidos ou absorvidos por auto-sustentacao."
@@ -457,13 +375,13 @@ const consolidatedDefaults = {
   "G-10": financeDefault("Realocar em obras", "Obras UTC", "114748.49", "Servicos complementares embutidos nas obras da UTC."),
 
   "D-01": decisionDefault(["Coleta atual mapeada", "Catadores quantificados"], "Parcial", "Linha-base: 100 t/mes de mistos na UTC, 15 t/mes segregadas, gravimetria com 30% de reciclaveis. Catadores do PSA: 12 previstos."),
-  "D-02": decisionDefault(["Quantidade por município", "Modelo físico", "Tipos de resíduos recebidos", "Operador fixo"], "Parcial", "6 PEVs, minimo 1 por municipio; detalhes fisicos e enderecos dependem do Plano Logistico/projetos."),
-  "D-03": decisionDefault(["Trabalhadores e vínculo", "Lista de equipamentos", "Nº de EPIs"], "Parcial", "UTC em Cristiano Otoni com 18 colaboradores CLT; equipamentos e EPIs individualizados no plano."),
-  "D-04": decisionDefault(["Volume de orgânicos", "Origem dos orgânicos", "Composteiras domésticas", "Hortas comunitárias"], "Parcial", "Meta de 120 t/mes de organicos, 30 composteiras domesticas e 6 hortas escolares."),
-  "D-05": decisionDefault(["Nº de catadores", "Critério de pagamento", "Valor mensal", "Forma de aferição", "Sustentabilidade pós-projeto"], "Completo", "PSA: 12 catadores x R$ 5.000/mes x 12 meses no plano de trabalho; orcamento detalhado ainda registra R$ 4.800/mes."),
-  "D-06": decisionDefault(["Escolas por município", "Oficinas por meta", "Participantes por oficina", "Plano de Mobilização"], "Parcial", "6 mobilizadores, 6 hortas escolares e acoes de educacao ambiental integradas."),
-  "D-07": decisionDefault(["Desenvolver do zero", "Módulos definidos", "Operação definida", "Aluguel vs aquisição de computadores"], "Completo", "SIGRS desenvolvido por empresa contratada, com 8 modulos, Canal do Cidadao, equipamentos de TIC e suporte tecnico."),
-  "D-08": decisionDefault(["Caminhão", "Pick-up", "Containers", "Notebook/impressora"], "Parcial", "Caminhao bau 6 t, pick-up, containers, notebooks/impressoras definidos; frota de compactadores municipais segue como item-chave a validar.")
+  "D-02": decisionDefault(["Quantidade por municÃ­pio", "Modelo fÃ­sico", "Tipos de resÃ­duos recebidos", "Operador fixo"], "Parcial", "6 PEVs, minimo 1 por municipio; detalhes fisicos e enderecos dependem do Plano Logistico/projetos."),
+  "D-03": decisionDefault(["Trabalhadores e vÃ­nculo", "Lista de equipamentos", "NÂº de EPIs"], "Parcial", "UTC em Cristiano Otoni com 18 colaboradores CLT; equipamentos e EPIs individualizados no plano."),
+  "D-04": decisionDefault(["Volume de orgÃ¢nicos", "Origem dos orgÃ¢nicos", "Composteiras domÃ©sticas", "Hortas comunitÃ¡rias"], "Parcial", "Meta de 120 t/mes de organicos, 30 composteiras domesticas e 6 hortas escolares."),
+  "D-05": decisionDefault(["NÂº de catadores", "CritÃ©rio de pagamento", "Valor mensal", "Forma de aferiÃ§Ã£o", "Sustentabilidade pÃ³s-projeto"], "Completo", "PSA: 12 catadores x R$ 5.000/mes x 12 meses no plano de trabalho; orcamento detalhado ainda registra R$ 4.800/mes."),
+  "D-06": decisionDefault(["Escolas por municÃ­pio", "Oficinas por meta", "Participantes por oficina", "Plano de MobilizaÃ§Ã£o"], "Parcial", "6 mobilizadores, 6 hortas escolares e acoes de educacao ambiental integradas."),
+  "D-07": decisionDefault(["Desenvolver do zero", "MÃ³dulos definidos", "OperaÃ§Ã£o definida", "Aluguel vs aquisiÃ§Ã£o de computadores"], "Completo", "SIGRS desenvolvido por empresa contratada, com 8 modulos, Canal do Cidadao, equipamentos de TIC e suporte tecnico."),
+  "D-08": decisionDefault(["CaminhÃ£o", "Pick-up", "Containers", "Notebook/impressora"], "Parcial", "Caminhao bau 6 t, pick-up, containers, notebooks/impressoras definidos; frota de compactadores municipais segue como item-chave a validar.")
 };
 
 function unique(value, index, array) {
@@ -527,7 +445,7 @@ function buildExpenseDefaults() {
     if (nature && nature !== "-" && !nature.includes(" ou ") && !nature.includes("/")) {
       groups.push(`nature:${nature}`);
     }
-    if (!excluded && gap !== "DECISÃO") {
+    if (!excluded && gap !== "DECISÃƒO") {
       groups.push("quotes:Pendente");
     }
 
@@ -569,7 +487,7 @@ function applyConsolidatedDefaults({ overwrite = false } = {}) {
 }
 
 function actionChoices(action) {
-  const base = ["Aceitar recomendação", "Revisar", "Manter com justificativa", "Não se aplica"];
+  const base = ["Aceitar recomendaÃ§Ã£o", "Revisar", "Manter com justificativa", "NÃ£o se aplica"];
   const normalized = action.split("+").map((item) => item.trim()).filter(Boolean);
   return [...normalized, ...base].filter(unique);
 }
@@ -772,303 +690,6 @@ function applyFilters() {
   });
 }
 
-function setView(view) {
-  activeView = view;
-  document.querySelectorAll(".view-tabs button").forEach((button) => {
-    button.classList.toggle("active", button.dataset.view === view);
-  });
-  document.getElementById("matrixView").classList.toggle("hidden", view !== "matriz");
-  document.getElementById("budgetView").classList.toggle("hidden", view === "matriz");
-  if (view !== "matriz") renderBudgetScreen(view);
-}
-
-window.condapavSetView = setView;
-
-async function renderBudgetScreen(view) {
-  const screen = budgetScreens[view];
-  if (!screen) return;
-  document.getElementById("budgetTitle").textContent = screen.title;
-  document.getElementById("budgetSubtitle").textContent = screen.subtitle;
-  document.getElementById("budgetEyebrow").textContent = screen.file;
-
-  const content = document.getElementById("budgetContent");
-  if (view === "comparativo") {
-    content.innerHTML = renderBudgetComparisonV3();
-    return;
-  }
-
-  content.innerHTML = "<p>Carregando orçamento...</p>";
-
-  try {
-    const markdown = budgetCache[screen.file] || await fetchMarkdown(screen.file);
-    budgetCache[screen.file] = markdown;
-    content.innerHTML = `${view === "redacaoTransferegov" ? renderStageDownloads() : ""}${markdownToHtml(markdown)}`;
-  } catch {
-    content.innerHTML = `<p>Não foi possível carregar <strong>${escapeHtml(screen.file)}</strong>. Abra esta página pelo GitHub Pages ou por um servidor local para permitir o carregamento dos arquivos Markdown.</p>`;
-  }
-}
-
-function renderStageDownloads() {
-  return `
-    <section class="downloads-panel">
-      <div>
-        <p class="eyebrow">Parte C - Descrições de Etapa</p>
-        <h1>Downloads das 25 descrições de etapa</h1>
-        <p>Arquivos em Markdown no formato das 5 perguntas do Manual SINIR, prontos para consulta e cópia.</p>
-      </div>
-      <div class="download-grid">
-        ${stageDescriptionFiles.map(([label, file]) => `
-          <a href="${encodeURI(file)}" download>
-            <strong>${escapeHtml(label)}</strong>
-            <span>${escapeHtml(file)}</span>
-          </a>
-        `).join("")}
-      </div>
-    </section>
-  `;
-}
-
-function renderBudgetComparisonV3() {
-  return `
-    <section class="comparison-summary">
-      <article>
-        <span>Mesmo valor global</span>
-        <strong>R$ 7.487.148,85</strong>
-        <p>As tres opcoes fecham exatamente no total da parceria.</p>
-      </article>
-      <article>
-        <span>Nova sintese</span>
-        <strong>Opcao 2.1</strong>
-        <p>PEVs realistas, SIGRS por APF, compactadores e PSA com 16 catadores.</p>
-      </article>
-      <article>
-        <span>Ponto de atencao</span>
-        <strong>64,6% investimento</strong>
-        <p>A Opcao 2.1 reduz investimento frente a Opcao 2, mas ainda pede checagem do edital.</p>
-      </article>
-    </section>
-
-    <h1>Comparativo Executivo</h1>
-    <p>A <strong>Opcao 1</strong> e a base detalhada original. A <strong>Opcao 2</strong> corrige precos unitarios, mas concentra muito recurso em obras. A <strong>Opcao 2.1</strong> redistribui a economia dos PEVs para SIGRS por APF, compactadores municipais e PSA com 16 catadores.</p>
-
-    <div class="table-wrap comparison-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Aspecto</th>
-            <th>Opcao 1</th>
-            <th>Opcao 2</th>
-            <th>Opcao 2.1</th>
-            <th>Leitura tecnica</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${comparisonRowsV3.map(([item, option1, option2, option21, note]) => `
-            <tr>
-              <td><strong>${escapeHtml(item)}</strong></td>
-              <td>${escapeHtml(option1)}</td>
-              <td>${escapeHtml(option2)}</td>
-              <td>${escapeHtml(option21)}</td>
-              <td>${escapeHtml(note)}</td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-    </div>
-
-    <h2>Principais Diferencas</h2>
-    <ul class="comparison-notes">
-      <li><strong>Opcao 2.1 corrige PEVs:</strong> reduz as obras dos PEVs de R$ 2,21 mi para R$ 720 mil, aproximando o item de uma tipologia mais realista.</li>
-      <li><strong>Opcao 2.1 reforca frota:</strong> inclui 3 compactadores municipais, usando R$ 1,291 mi da economia dos PEVs.</li>
-      <li><strong>SIGRS fica mais defensavel:</strong> sobe de R$ 160.786,76 para R$ 360.000,00, agora justificado por Pontos de Funcao/APF.</li>
-      <li><strong>PSA muda de desenho:</strong> sai de 12 catadores com maior repasse mensal para 16 catadores por 17 meses, com gestao enxuta restaurada.</li>
-      <li><strong>Ponto critico remanescente:</strong> investimento cai de 67,2% para 64,6%, mas ainda precisa validar teto de custeio/investimento no edital.</li>
-    </ul>
-
-    <blockquote><strong>Leitura recomendada:</strong> usar a Opcao 2.1 como base de trabalho, validando compactadores, APF do SIGRS, indicadores da Meta 4 e limite Custeio x Investimento.</blockquote>
-  `;
-}
-
-function renderBudgetComparison() {
-  return `
-    <section class="comparison-summary">
-      <article>
-        <span>Mesmo valor global</span>
-        <strong>R$ 7.487.148,85</strong>
-        <p>As duas opções fecham exatamente no total da parceria.</p>
-      </article>
-      <article>
-        <span>Maior mudança</span>
-        <strong>PSA direto</strong>
-        <p>A Opção 2 remove gestão/RH e aumenta o pagamento direto aos catadores.</p>
-      </article>
-      <article>
-        <span>Ponto de atenção</span>
-        <strong>67,2% investimento</strong>
-        <p>A Opção 2 concentra fechamento em obras; conferir limite do edital.</p>
-      </article>
-    </section>
-
-    <h1>Comparativo Executivo</h1>
-    <p>A <strong>Opção 1</strong> é uma planilha mais aberta, com serviços e itens técnicos detalhados e valores ainda distribuídos entre gestão, software, equipamentos e obras. A <strong>Opção 2</strong> corrige preços unitários por médias/medianas de cotação, reduz itens sem lastro claro e realoca o fechamento principalmente para obras e pagamento direto do PSA.</p>
-
-    <div class="table-wrap comparison-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Aspecto</th>
-            <th>Opção 1</th>
-            <th>Opção 2</th>
-            <th>Diferença</th>
-            <th>Leitura técnica</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${comparisonRows.map(([item, option1, option2, diff, note]) => `
-            <tr class="${comparisonClass(diff)}">
-              <td><strong>${escapeHtml(item)}</strong></td>
-              <td>${escapeHtml(option1)}</td>
-              <td>${escapeHtml(option2)}</td>
-              <td><span class="diff-pill">${escapeHtml(diff)}</span></td>
-              <td>${escapeHtml(note)}</td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
-    </div>
-
-    <h2>Principais Diferenças</h2>
-    <ul class="comparison-notes">
-      <li><strong>Opção 2 é mais defensável para bens cotados:</strong> pick-up, notebooks, containers, contentores, balança e medidor de umidade foram reduzidos para valores compatíveis com média/mediana de cotação.</li>
-      <li><strong>Opção 2 desloca recursos para obras:</strong> PEVs, UTC e pátio passam a absorver o fechamento do orçamento, com ressalva de atualização após projeto básico, ART e orçamento detalhado.</li>
-      <li><strong>Opção 2 fortalece o PSA:</strong> o pagamento direto aos catadores sobe de R$ 427.446,60 para R$ 691.200,00, e o item de gestão/RH de R$ 219.153,33 é removido.</li>
-      <li><strong>Opção 2 reduz o SIGRS:</strong> cai de R$ 585.255,94 para R$ 160.786,76; isso melhora aderência ao cadastrado original, mas exige cotação/TR robusto para evitar subdimensionamento.</li>
-      <li><strong>Ponto crítico:</strong> a Opção 2 eleva investimento para 67,2% do total. Antes de escolher, vale confirmar se o edital/programa impõe limite para a proporção entre custeio e investimento.</li>
-    </ul>
-
-    <blockquote><strong>Leitura recomendada:</strong> usar a Opção 2 como base técnica, desde que o limite Custeio x Investimento seja validado. Se houver teto de investimento, rebalancear parte das obras para custeio elegível, como Produto 24, PSA ou consultorias justificadas.</blockquote>
-  `;
-}
-
-function comparisonClass(diff) {
-  if (diff.startsWith("+")) return "is-increase";
-  if (diff.startsWith("-")) return "is-decrease";
-  if (/mudança|atenção/i.test(diff)) return "is-warning";
-  return "";
-}
-
-async function fetchMarkdown(file) {
-  const response = await fetch(file, { cache: "no-store" });
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  return response.text();
-}
-
-function markdownToHtml(markdown) {
-  const lines = markdown.replace(/\r\n/g, "\n").split("\n");
-  const html = [];
-  let paragraph = [];
-  let list = [];
-
-  const flushParagraph = () => {
-    if (!paragraph.length) return;
-    html.push(`<p>${inlineMarkdown(paragraph.join(" "))}</p>`);
-    paragraph = [];
-  };
-  const flushList = () => {
-    if (!list.length) return;
-    html.push(`<ul>${list.map((item) => `<li>${inlineMarkdown(item)}</li>`).join("")}</ul>`);
-    list = [];
-  };
-
-  for (let index = 0; index < lines.length; index += 1) {
-    const line = lines[index].trim();
-
-    if (!line) {
-      flushParagraph();
-      flushList();
-      continue;
-    }
-
-    if (line.startsWith("|") && lines[index + 1]?.trim().startsWith("|---")) {
-      flushParagraph();
-      flushList();
-      const tableLines = [line];
-      index += 2;
-      while (index < lines.length && lines[index].trim().startsWith("|")) {
-        tableLines.push(lines[index].trim());
-        index += 1;
-      }
-      index -= 1;
-      html.push(markdownTableToHtml(tableLines));
-      continue;
-    }
-
-    if (line === "---") {
-      flushParagraph();
-      flushList();
-      html.push("<hr>");
-      continue;
-    }
-
-    const heading = line.match(/^(#{1,3})\s+(.+)$/);
-    if (heading) {
-      flushParagraph();
-      flushList();
-      const level = heading[1].length;
-      html.push(`<h${level}>${inlineMarkdown(heading[2])}</h${level}>`);
-      continue;
-    }
-
-    if (line.startsWith(">")) {
-      flushParagraph();
-      flushList();
-      html.push(`<blockquote>${inlineMarkdown(line.replace(/^>\s?/, ""))}</blockquote>`);
-      continue;
-    }
-
-    const bullet = line.match(/^[-*]\s+(.+)$/);
-    if (bullet) {
-      flushParagraph();
-      list.push(bullet[1]);
-      continue;
-    }
-
-    const numbered = line.match(/^\d+\.\s+(.+)$/);
-    if (numbered) {
-      flushParagraph();
-      list.push(numbered[1]);
-      continue;
-    }
-
-    paragraph.push(line);
-  }
-
-  flushParagraph();
-  flushList();
-  return html.join("\n");
-}
-
-function markdownTableToHtml(tableLines) {
-  const rows = tableLines.map((line) => line.split("|").slice(1, -1).map((cell) => cell.trim()));
-  const [header, ...body] = rows;
-  return `<div class="table-wrap"><table><thead><tr>${header.map((cell) => `<th>${inlineMarkdown(cell)}</th>`).join("")}</tr></thead><tbody>${body.map((row) => `<tr>${row.map((cell) => `<td>${inlineMarkdown(cell)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-}
-
-function inlineMarkdown(value) {
-  return escapeHtml(value)
-    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    .replace(/_(.+?)_/g, "<em>$1</em>")
-    .replace(/`(.+?)`/g, "<code>$1</code>");
-}
-
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
 function updateSummary() {
   const total = fields.length;
   const records = fields.map((field) => getRecord(field.id));
@@ -1133,7 +754,7 @@ function importJson(file) {
       saveState();
       render();
     } catch {
-      alert("Arquivo JSON inválido.");
+      alert("Arquivo JSON invÃ¡lido.");
     }
   };
   reader.readAsText(file);
@@ -1161,10 +782,7 @@ document.getElementById("clearData").addEventListener("click", () => {
 document.getElementById("importJson").addEventListener("change", (event) => {
   if (event.target.files[0]) importJson(event.target.files[0]);
 });
-document.querySelectorAll(".view-tabs button").forEach((button) => {
-  button.addEventListener("click", () => setView(button.dataset.view));
-});
 
 applyConsolidatedDefaults();
 render();
-setView(activeView);
+
