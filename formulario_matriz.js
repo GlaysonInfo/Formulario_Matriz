@@ -263,6 +263,11 @@ const budgetScreens = {
     title: "Comparativo entre propostas orçamentárias",
     subtitle: "Diferenças de valores, composição e decisões críticas entre a Opção 1 e a Opção 2.",
     file: "Comparativo interno"
+  },
+  redacaoTransferegov: {
+    title: "Redação Provisória - Transfere.gov",
+    subtitle: "Blocos prontos para preenchimento dos campos do sistema Transfere.gov.",
+    file: "07_REDACOES_FINAIS_Campos_Sistema.md"
   }
 };
 const budgetCache = {};
