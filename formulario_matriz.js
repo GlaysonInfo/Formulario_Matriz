@@ -258,9 +258,33 @@ const budgetScreens = {
     title: "Opção 2 - Orçamentação",
     subtitle: "Versão vfinal corrigida, com médias/medianas de cotações e fechamento realocado para obras.",
     file: "06_ORCAMENTO_CORRIGIDO_vfinal.md"
+  },
+  comparativo: {
+    title: "Comparativo entre propostas orçamentárias",
+    subtitle: "Diferenças de valores, composição e decisões críticas entre a Opção 1 e a Opção 2.",
+    file: "Comparativo interno"
   }
 };
 const budgetCache = {};
+
+const comparisonRows = [
+  ["Valor global", "R$ 7.487.148,85", "R$ 7.487.148,85", "Igual", "As duas fecham exatamente no mesmo total."],
+  ["Meta 1", "R$ 4.479.974,89", "R$ 4.492.289,31", "+ R$ 12.314,42", "Opção 2 força o perfil para 60,00%."],
+  ["Meta 2", "R$ 1.871.937,97", "R$ 1.871.787,21", "- R$ 150,76", "Diferença residual de ajuste."],
+  ["Meta 3", "R$ 386.521,10", "R$ 374.357,44", "- R$ 12.163,66", "Opção 2 reduz a Meta 3 para 5,00%."],
+  ["Meta 4", "R$ 748.714,89", "R$ 748.714,89", "Igual", "Mantém 10,00% para inclusão produtiva/PSA."],
+  ["Pick-up", "R$ 259.966,67", "R$ 154.350,00", "- R$ 105.616,67", "Opção 2 corrige para média das 3 cotações."],
+  ["Notebook", "R$ 6.201,00", "R$ 3.899,00", "- R$ 2.302,00/un.", "Opção 2 troca preço médio por mediana, retirando cotação de pacote."],
+  ["Container 700 L", "R$ 2.699,67", "R$ 1.807,00", "- R$ 892,67/un.", "Opção 2 usa mediana/cotação base."],
+  ["Contentor 500 L", "R$ 2.771,83", "R$ 969,86", "- R$ 1.801,97/un.", "Opção 2 corrige para média da cotação 500 L."],
+  ["SIGRS", "R$ 585.255,94", "R$ 160.786,76", "- R$ 424.469,18", "Opção 2 volta ao valor cadastrado original e marca risco de subdimensionamento."],
+  ["Obras PEVs", "R$ 1.594.857,33", "R$ 2.210.266,35", "+ R$ 615.409,02", "Opção 2 concentra fechamento nas obras dos PEVs."],
+  ["Obra UTC", "R$ 1.594.857,33", "R$ 1.636.857,30", "+ R$ 41.999,97", "Opção 2 reforça obra, mantendo ajuste após projeto básico/ART."],
+  ["Obra pátio", "R$ 187.323,47", "R$ 210.889,62", "+ R$ 23.566,15", "Opção 2 absorve fechamento no pátio de compostagem."],
+  ["Gestão/RH do PSA", "R$ 219.153,33", "Removida", "- R$ 219.153,33", "Opção 2 absorve a gestão pela equipe própria do CONDAPAV + Produto 24."],
+  ["Pagamento direto PSA", "R$ 427.446,60", "R$ 691.200,00", "+ R$ 263.753,40", "Opção 2 prioriza pagamento direto aos 12 catadores."],
+  ["Custeio x Investimento", "Não consolidado no resumo final", "Investimento R$ 5.032.546,00 / Custeio R$ 2.454.602,85", "Mudança relevante", "Opção 2 sobe investimento para 67,2%; precisa conferir limite do edital."]
+];
 
 const consolidatedDefaults = {
   ...buildExpenseDefaults(),
@@ -724,6 +748,11 @@ async function renderBudgetScreen(view) {
   document.getElementById("budgetEyebrow").textContent = screen.file;
 
   const content = document.getElementById("budgetContent");
+  if (view === "comparativo") {
+    content.innerHTML = renderBudgetComparison();
+    return;
+  }
+
   content.innerHTML = "<p>Carregando orçamento...</p>";
 
   try {
@@ -733,6 +762,74 @@ async function renderBudgetScreen(view) {
   } catch {
     content.innerHTML = `<p>Não foi possível carregar <strong>${escapeHtml(screen.file)}</strong>. Abra esta página pelo GitHub Pages ou por um servidor local para permitir o carregamento dos arquivos Markdown.</p>`;
   }
+}
+
+function renderBudgetComparison() {
+  return `
+    <section class="comparison-summary">
+      <article>
+        <span>Mesmo valor global</span>
+        <strong>R$ 7.487.148,85</strong>
+        <p>As duas opções fecham exatamente no total da parceria.</p>
+      </article>
+      <article>
+        <span>Maior mudança</span>
+        <strong>PSA direto</strong>
+        <p>A Opção 2 remove gestão/RH e aumenta o pagamento direto aos catadores.</p>
+      </article>
+      <article>
+        <span>Ponto de atenção</span>
+        <strong>67,2% investimento</strong>
+        <p>A Opção 2 concentra fechamento em obras; conferir limite do edital.</p>
+      </article>
+    </section>
+
+    <h1>Comparativo Executivo</h1>
+    <p>A <strong>Opção 1</strong> é uma planilha mais aberta, com serviços e itens técnicos detalhados e valores ainda distribuídos entre gestão, software, equipamentos e obras. A <strong>Opção 2</strong> corrige preços unitários por médias/medianas de cotação, reduz itens sem lastro claro e realoca o fechamento principalmente para obras e pagamento direto do PSA.</p>
+
+    <div class="table-wrap comparison-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Aspecto</th>
+            <th>Opção 1</th>
+            <th>Opção 2</th>
+            <th>Diferença</th>
+            <th>Leitura técnica</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${comparisonRows.map(([item, option1, option2, diff, note]) => `
+            <tr class="${comparisonClass(diff)}">
+              <td><strong>${escapeHtml(item)}</strong></td>
+              <td>${escapeHtml(option1)}</td>
+              <td>${escapeHtml(option2)}</td>
+              <td><span class="diff-pill">${escapeHtml(diff)}</span></td>
+              <td>${escapeHtml(note)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Principais Diferenças</h2>
+    <ul class="comparison-notes">
+      <li><strong>Opção 2 é mais defensável para bens cotados:</strong> pick-up, notebooks, containers, contentores, balança e medidor de umidade foram reduzidos para valores compatíveis com média/mediana de cotação.</li>
+      <li><strong>Opção 2 desloca recursos para obras:</strong> PEVs, UTC e pátio passam a absorver o fechamento do orçamento, com ressalva de atualização após projeto básico, ART e orçamento detalhado.</li>
+      <li><strong>Opção 2 fortalece o PSA:</strong> o pagamento direto aos catadores sobe de R$ 427.446,60 para R$ 691.200,00, e o item de gestão/RH de R$ 219.153,33 é removido.</li>
+      <li><strong>Opção 2 reduz o SIGRS:</strong> cai de R$ 585.255,94 para R$ 160.786,76; isso melhora aderência ao cadastrado original, mas exige cotação/TR robusto para evitar subdimensionamento.</li>
+      <li><strong>Ponto crítico:</strong> a Opção 2 eleva investimento para 67,2% do total. Antes de escolher, vale confirmar se o edital/programa impõe limite para a proporção entre custeio e investimento.</li>
+    </ul>
+
+    <blockquote><strong>Leitura recomendada:</strong> usar a Opção 2 como base técnica, desde que o limite Custeio x Investimento seja validado. Se houver teto de investimento, rebalancear parte das obras para custeio elegível, como Produto 24, PSA ou consultorias justificadas.</blockquote>
+  `;
+}
+
+function comparisonClass(diff) {
+  if (diff.startsWith("+")) return "is-increase";
+  if (diff.startsWith("-")) return "is-decrease";
+  if (/mudança|atenção/i.test(diff)) return "is-warning";
+  return "";
 }
 
 async function fetchMarkdown(file) {

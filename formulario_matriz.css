@@ -292,6 +292,74 @@ textarea,
   margin: 22px 0;
 }
 
+.comparison-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.comparison-summary article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: #f8faf7;
+}
+
+.comparison-summary span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.comparison-summary strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 22px;
+}
+
+.comparison-summary p {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.comparison-table td:nth-child(4) {
+  white-space: nowrap;
+}
+
+.diff-pill {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 3px 8px;
+  background: #eef1f4;
+  font-weight: 700;
+}
+
+.comparison-table tr.is-increase .diff-pill {
+  background: #e8f4ec;
+  color: var(--ok);
+}
+
+.comparison-table tr.is-decrease .diff-pill {
+  background: #f7ebe8;
+  color: var(--warn);
+}
+
+.comparison-table tr.is-warning .diff-pill {
+  background: #fff4d9;
+  color: #7a5410;
+}
+
+.comparison-notes {
+  padding-left: 20px;
+}
+
+.comparison-notes li {
+  margin: 8px 0;
+}
+
 .field-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 220px;
@@ -419,7 +487,8 @@ textarea {
 
   .summary,
   .filters,
-  .metadata {
+  .metadata,
+  .comparison-summary {
     grid-template-columns: 1fr;
   }
 }
