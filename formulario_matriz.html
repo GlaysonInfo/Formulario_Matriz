@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Documentos Finais - CONDAPAV</title>
-  <link rel="stylesheet" href="formulario_matriz.css?v=20260520-5">
+  <link rel="stylesheet" href="formulario_matriz.css?v=20260521-1">
 </head>
 <body>
   <header class="topbar">
     <div>
       <p class="eyebrow">Parceria 2025-00000232 - CONDAPAV / MMA</p>
       <h1>Documentos Finais CONDAPAV</h1>
-      <p class="subtitle">Matriz de dados, campos para cadastro no TRANSFERE.GOV e PAD consolidado.</p>
+      <p class="subtitle">Matriz de dados, campos para cadastro no TRANSFERE.GOV, PAD e cronograma físico-financeiro.</p>
     </div>
     <div class="actions no-print">
       <button type="button" id="exportCsv">Exportar CSV</button>
@@ -31,6 +31,7 @@
       <button type="button" class="active" data-view="matriz" onclick="window.condapavSetView && window.condapavSetView('matriz')">01 - Matriz de Dados</button>
       <button type="button" data-view="transferegov" onclick="window.condapavSetView && window.condapavSetView('transferegov')">02 - Campos TRANSFERE.GOV</button>
       <button type="button" data-view="pad" onclick="window.condapavSetView && window.condapavSetView('pad')">03 - PAD</button>
+      <button type="button" data-view="crono" onclick="window.condapavSetView && window.condapavSetView('crono')">04 - Crono Físico-Financeiro</button>
     </nav>
 
     <section id="matrixView">
@@ -111,6 +112,6 @@
     </article>
   </template>
 
-  <script src="formulario_matriz.js?v=20260520-5"></script>
+  <script src="formulario_matriz.js?v=20260521-1"></script>
 </body>
 </html>

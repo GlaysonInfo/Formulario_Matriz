@@ -258,6 +258,11 @@ const budgetScreens = {
     title: "03 - PAD",
     subtitle: "Plano de Aplicação Detalhado consolidado por meta, etapa, item de despesa, código, quantidade e valor.",
     file: "pad_final_condapav_mma.md"
+  },
+  crono: {
+    title: "04 - Crono Físico-Financeiro",
+    subtitle: "Cronograma por meta e etapa, com período de execução e valor previsto.",
+    file: "crono_fisico_financeiro.md"
   }
 };
 const budgetCache = {};
@@ -833,11 +838,20 @@ function isMarkdownTableSeparator(line) {
 function markdownTableToHtml(tableLines) {
   const rows = tableLines.map((line) => line.split("|").slice(1, -1).map((cell) => cell.trim()));
   const [header, ...body] = rows;
-  return `<div class="table-wrap"><table><thead><tr>${header.map((cell) => `<th>${inlineMarkdown(cell)}</th>`).join("")}</tr></thead><tbody>${body.map((row) => {
+  const tableClass = getTableClass(header);
+  return `<div class="table-wrap ${tableClass}"><table><thead><tr>${header.map((cell) => `<th>${inlineMarkdown(cell)}</th>`).join("")}</tr></thead><tbody>${body.map((row) => {
     const rowText = row.join(" ").toLowerCase();
     const className = rowText.includes("subtotal") || rowText.includes("total geral") ? ' class="subtotal-row"' : "";
     return `<tr${className}>${row.map((cell) => `<td>${inlineMarkdown(cell)}</td>`).join("")}</tr>`;
   }).join("")}</tbody></table></div>`;
+}
+
+function getTableClass(header) {
+  const normalized = header.map((cell) => slug(cell));
+  if (normalized.includes("inicio") && normalized.includes("fim") && normalized.includes("valor_r")) {
+    return "chrono-table";
+  }
+  return "";
 }
 
 function inlineMarkdown(value) {
