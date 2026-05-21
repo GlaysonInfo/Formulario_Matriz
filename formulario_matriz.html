@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Matriz Exigência x Resposta - CONDAPAV</title>
-  <link rel="stylesheet" href="formulario_matriz.css?v=20260520-8">
+  <title>Documentos Finais - CONDAPAV</title>
+  <link rel="stylesheet" href="formulario_matriz.css?v=20260520-5">
 </head>
 <body>
   <header class="topbar">
     <div>
       <p class="eyebrow">Parceria 2025-00000232 - CONDAPAV / MMA</p>
-      <h1>Matriz Exigência x Resposta</h1>
-      <p class="subtitle">Formulário eletrônico com respostas por marcação, exportação CSV/JSON e impressão em PDF.</p>
+      <h1>Documentos Finais CONDAPAV</h1>
+      <p class="subtitle">Matriz de dados, campos para cadastro no TRANSFERE.GOV e PAD consolidado.</p>
     </div>
     <div class="actions no-print">
       <button type="button" id="exportCsv">Exportar CSV</button>
@@ -27,6 +27,13 @@
   </header>
 
   <main>
+    <nav class="view-tabs no-print" aria-label="Telas do sistema">
+      <button type="button" class="active" data-view="matriz" onclick="window.condapavSetView && window.condapavSetView('matriz')">01 - Matriz de Dados</button>
+      <button type="button" data-view="transferegov" onclick="window.condapavSetView && window.condapavSetView('transferegov')">02 - Campos TRANSFERE.GOV</button>
+      <button type="button" data-view="pad" onclick="window.condapavSetView && window.condapavSetView('pad')">03 - PAD</button>
+    </nav>
+
+    <section id="matrixView">
     <section class="summary no-print" aria-label="Resumo">
       <div>
         <strong id="countTotal">0</strong>
@@ -69,6 +76,16 @@
 
     <nav id="tabs" class="tabs no-print" aria-label="Partes da matriz"></nav>
     <section id="formRoot" class="form-root"></section>
+    </section>
+
+    <section id="budgetView" class="budget-view hidden">
+      <div class="budget-head">
+        <p id="budgetEyebrow" class="eyebrow">Orçamentação</p>
+        <h2 id="budgetTitle"></h2>
+        <p id="budgetSubtitle" class="subtitle"></p>
+      </div>
+      <article id="budgetContent" class="budget-content"></article>
+    </section>
   </main>
 
   <template id="fieldTemplate">
@@ -94,6 +111,6 @@
     </article>
   </template>
 
-  <script src="formulario_matriz.js?v=20260520-8"></script>
+  <script src="formulario_matriz.js?v=20260520-5"></script>
 </body>
 </html>
